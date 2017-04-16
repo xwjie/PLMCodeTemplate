@@ -21,12 +21,10 @@ public class ConfigService {
 	ConfigDao dao;
 
 	public Collection<Config> getAll() {
-		notNull(null, "param.is.null");
 		return dao.getAll();
 	}
 
 	public long add(Config config) {
-
 		// 参数校验
 		notNull(config, "param.is.null");
 		notEmpty(config.getName(), "name.is.null");

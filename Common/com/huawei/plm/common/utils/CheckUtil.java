@@ -1,8 +1,5 @@
 package com.huawei.plm.common.utils;
 
-import java.util.Locale;
-
-import org.springframework.cglib.core.Local;
 import org.springframework.context.MessageSource;
 
 import com.huawei.plm.common.exceptions.CheckException;
@@ -35,6 +32,6 @@ public class CheckUtil {
 	}
 
 	private static void fail(String msgKey) {
-		throw new CheckException(resources.getMessage(msgKey, NullArgs, Locale.getDefault()));
+		throw new CheckException(resources.getMessage(msgKey, NullArgs, UserUtil.getLocale()));
 	}
 }

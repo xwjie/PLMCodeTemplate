@@ -42,4 +42,9 @@ public class Config implements Serializable {
 		this.id = id;
 	}
 
+	@Override
+	public String toString() {
+		return "Config [name=" + name + ", description=" + description + ", value=" + value + ", id=" + id + "]";
+	}
+
 }

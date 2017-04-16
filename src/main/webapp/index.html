@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style type="text/css">
+	.selected{
+		background-color: yellow;
+	}
+</style>
+</head>
+<body>
+
+	<a id="lang_zh" href="##" onclick="javacript:switchLang('zh')">中文</a>
+	<a id="lang_en" href="##" onclick="javacript:switchLang('en')">英文</a>
+	<b>(只限于后台国际化)</b>
+	<hr/>
+
+	<form id="formConfig" action="config/add" method="post">
+		配置项名称：<input name="name"><br /> 
+		配置项取值：<input name="value"><br/>
+		<button type="submit">提交</button>
+	</form>
+	<hr/>
+	
+	<div id="configs">
+	</div>
+
+	<h1>接口规范</h1>
+	<script src="resources/js/jquery.min.1.4.2.js"></script>
+	
+	<script id="configTemplate" type="text/html">
+<div>
+    <%if(list.length>0) { %>
+        <h3>输出所有数据，共有<%=list.length%>个元素</h3>
+        <ul>
+            <!-- 循环语句 for-->
+            <%for(var i=0; i < list.length; i++){%>
+                <li><%=list[i].name%> <a href="##" onclick="javascirpt:deleteConfig(<%=list[i].id%>)">删除<a/></li>
+            <%}%>
+        </ul>
+    <%}else{%>
+        <h2>没有数据</h2>   
+    <%}%>
+</div>  
+	</script>
+	
+	<script type="text/javascript">
+		function switchLang(lang) {
+			$.cookie('lang', lang);
+			
+			$('.selected').removeClass('selected');
+			$('#lang_' + lang).addClass("selected");
+		}
+
+		function showError(s){
+			alert(s);
+		}
+		
+		function handlerResult(result, fn){
+			// 成功执行操作，失败提示原因
+			if(result.code == 0){
+				fn(result.data);
+			}else{
+				showError(result.msg);	
+			}
+		}
+		
+		function deleteConfig(id){
+			$.post('config/delete', {id:id}, function(result){
+				console.log('delete result', result);
+				handlerResult(result, fetchAllConfigs);
+			} );
+		}
+		
+		function fetchAllConfigs(){
+			$.getJSON('config/all', function(result){
+				handlerResult(result, renderConfigs);
+			});
+		}
+		
+		function renderConfigs(configs){
+			var html = baidu.template('configTemplate', {list: configs});
+			document.getElementById('configs').innerHTML=html;
+		}
+		
+		$(document).ready(function() {
+			switchLang($.cookie('lang'));
+			
+			fetchAllConfigs();
+			
+			// 新增
+			$('#formConfig').ajaxForm(function(result) {
+				console.log('add result', result);
+				handlerResult(result, fetchAllConfigs);
+			});			
+		});
+	</script>
+	<script src="resources/js/jquery.cookie.js"></script>
+	<script src="resources/js/jquery.form.js"></script>
+	<script src="resources/js/baiduTemplate.js"></script>
+</body>
+</html>
