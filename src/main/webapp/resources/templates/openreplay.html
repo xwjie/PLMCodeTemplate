@@ -17,9 +17,10 @@
 			console.log('add result', result);
 
 			if (result.code == 0) {
-				alert('success');
-				
 				layer.closeAll();
+			}
+			else{
+				layer.alert(result.msg, {icon: 5});
 			}
 		});
 	</script>
