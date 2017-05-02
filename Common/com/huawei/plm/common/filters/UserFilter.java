@@ -69,7 +69,8 @@ public class UserFilter implements Filter {
 	}
 
 	private String getUserFromSession(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
+		//TODO 如果不参加session，model.addAttribute(UserUtil.KEY_USER, username);报错
+		HttpSession session = request.getSession(true);
 
 		if (session == null) {
 			return null;

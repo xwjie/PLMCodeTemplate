@@ -2,6 +2,8 @@ package com.huawei.plm.common.utils;
 
 import java.util.Locale;
 
+import org.apache.log4j.MDC;
+
 public class UserUtil {
 
 	private final static ThreadLocal<String> tlUser = new ThreadLocal<>();
@@ -19,6 +21,9 @@ public class UserUtil {
 
 	public static void setUser(String userid) {
 		tlUser.set(userid);
+		
+		// log4j
+		MDC.put(KEY_USER, userid);
 	}
 
 	public static String getUser() {
@@ -40,5 +45,7 @@ public class UserUtil {
 	public static void clearAllUserInfo() {
 		tlUser.remove();
 		tlLocale.remove();
+		
+		MDC.remove(KEY_USER);
 	}
 }
