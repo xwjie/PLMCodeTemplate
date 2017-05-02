@@ -46,14 +46,51 @@
 </div>  
 	</script>
 
-	<script data-main="resources/main" src="resources/require.js" ></script>
-
+	<script src="resources/lib/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript">
+		function loginDone(data) {
+			$("#userinfo").html("login user:" + data);
+		}
+
 		function switchLang(lang) {
 			$.cookie('lang', lang);
 
 			$('.selected').removeClass('selected');
 			$('#lang_' + lang).addClass("selected");
+		}
+		function showError(s) {
+			alert(s);
+		}
+
+		function handlerResult(result, fn) {
+			// 成功执行操作，失败提示原因
+			if (result.code == 0) {
+				fn(result.data);
+			} else {
+				showError(result.msg);
+			}
+		}
+
+		function deleteConfig(id) {
+			$.post('config/delete', {
+				id : id
+			}, function(result) {
+				console.log('delete result', result);
+				handlerResult(result, fetchAllConfigs);
+			});
+		}
+
+		function fetchAllConfigs() {
+			$.getJSON('config/all', function(result) {
+				handlerResult(result, renderConfigs);
+			});
+		}
+
+		function renderConfigs(configs) {
+			var html = baidu.template('configTemplate', {
+				list : configs
+			});
+			document.getElementById('configs').innerHTML = html;
 		}
 
 		$(document).ready(function() {
@@ -74,5 +111,8 @@
 			});
 		});
 	</script>
+	<script src="resources/lib/jquery.cookie.js"></script>
+	<script src="resources/lib/jquery.form.js"></script>
+	<script src="resources/lib/baiduTemplate.js"></script>
 </body>
 </html>
