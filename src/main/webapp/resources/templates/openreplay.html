@@ -14,13 +14,11 @@
 	<script>
 		// 新增
 		$('#formConfig').ajaxForm(function(result) {
-			console.log('add result', result);
-
 			if (result.code == 0) {
 				layer.closeAll();
 			}
 			else{
-				layer.alert(result.msg, {icon: 5});
+				layer.msg(result.msg, {icon: 5});
 			}
 		});
 	</script>
