@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<h3>回复讨论</h3>
+	<form id="formConfig" action="config/add" method="post">
+		配置项名称：<input name="name"><br /> 配置项取值：<input name="value"><br />
+		<button type="submit">提交</button>
+	</form>
+	<script src="resources/lib/jquery.form.js"></script>
+	<script>
+		// 新增
+		$('#formConfig').ajaxForm(function(result) {
+			if (result.code == 0) {
+				layer.closeAll();
+			}
+			else{
+				layer.alert(result.msg, {icon: 5});
+			}
+		});
+	</script>
+</body>
+</html>
