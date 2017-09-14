@@ -1,7 +1,10 @@
-package com.huawei.plm.common.beans;
+package plm.common.beans;
 
 import java.io.Serializable;
 
+import lombok.Data;
+
+@Data
 public class ResultBean<T> implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -21,34 +24,15 @@ public class ResultBean<T> implements Serializable {
 	public ResultBean() {
 		super();
 	}
-	
+
 	public ResultBean(T data) {
 		super();
 		this.data = data;
 	}
 
-	public String getMsg() {
-		return msg;
+	public ResultBean(Throwable e) {
+		super();
+		this.msg = e.toString();
+		this.code = FAIL;
 	}
-
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
-
-	public int getCode() {
-		return code;
-	}
-
-	public void setCode(int code) {
-		this.code = code;
-	}
-
-	public T getData() {
-		return data;
-	}
-
-	public void setData(T data) {
-		this.data = data;
-	}
-
 }

@@ -11,7 +11,7 @@
 	</appender>
 	
 	<!-- Application Loggers -->
-	<logger name="com.huawei.plm">
+	<logger name="plm">
 		<level value="info" />
 	</logger>
 	

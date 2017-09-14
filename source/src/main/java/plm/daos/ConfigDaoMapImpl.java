@@ -1,6 +1,6 @@
-package com.huawei.plm.daos;
+package plm.daos;
 
-import static com.huawei.plm.common.utils.CheckUtil.check;
+import static plm.common.utils.CheckUtil.check;
 
 import java.util.Collection;
 import java.util.List;
@@ -12,7 +12,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 import org.w3c.dom.Document;
 
-import com.huawei.plm.beans.Config;
+import plm.beans.Config;
 
 @Component
 public class ConfigDaoMapImpl implements ConfigDao {

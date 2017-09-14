@@ -1,4 +1,4 @@
-package com.huawei.plm.common.utils;
+package plm.common.utils;
 
 import java.util.Locale;
 
@@ -11,7 +11,7 @@ public class UserUtil {
 	private final static ThreadLocal<Locale> tlLocale = new ThreadLocal<Locale>() {
 		protected Locale initialValue() {
 			// 语言的默认值
-			return Locale.CHINA;
+			return Locale.CHINESE;
 		};
 	};
 

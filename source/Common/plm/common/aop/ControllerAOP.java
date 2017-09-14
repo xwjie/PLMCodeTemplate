@@ -1,11 +1,11 @@
-package com.huawei.plm.common.aop;
+package plm.common.aop;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.huawei.plm.common.beans.ResultBean;
-import com.huawei.plm.common.exceptions.CheckException;
+import plm.common.beans.ResultBean;
+import plm.common.exceptions.CheckException;
 
 public class ControllerAOP {
 	private static final Logger logger = LoggerFactory.getLogger(ControllerAOP.class);

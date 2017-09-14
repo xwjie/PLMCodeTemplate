@@ -1,4 +1,4 @@
-package com.huawei.plm.common.filters;
+package plm.common.filters;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.huawei.plm.common.utils.UserUtil;
+import plm.common.utils.UserUtil;
 
 public class UserFilter implements Filter {
 
@@ -50,7 +50,7 @@ public class UserFilter implements Filter {
 		if (locale != null) {
 			UserUtil.setLocale(locale);
 		}
-	}
+	} 
 
 	private String getLocaleFromCookies(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();

@@ -1,4 +1,4 @@
-package com.huawei.plm.controllers;
+package plm.controllers;
 
 import java.util.Collection;
 
@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.huawei.plm.beans.Config;
-import com.huawei.plm.common.beans.ResultBean;
-import com.huawei.plm.services.ConfigService;
+import plm.beans.Config;
+import plm.common.beans.ResultBean;
+import plm.services.ConfigService;
 
 @RequestMapping("/config")
 @RestController

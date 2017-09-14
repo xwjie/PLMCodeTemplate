@@ -1,4 +1,4 @@
-package com.huawei.plm.common.exceptions;
+package plm.common.exceptions;
 
 public class CheckException extends RuntimeException {
 

@@ -1,21 +1,25 @@
-package com.huawei.plm.services;
+package plm.services;
 
-import static com.huawei.plm.common.utils.CheckUtil.*;
+import static plm.common.utils.CheckUtil.*;
 
 import java.util.Collection;
+import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.huawei.plm.beans.Config;
-import com.huawei.plm.daos.ConfigDao;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.databind.JsonNode;
+
+import plm.beans.Config;
+import plm.daos.ConfigDao;
 
 @Service
-public class ConfigService {
+public class ConfigService2 {
 
-	private static final Logger logger = LoggerFactory.getLogger(ConfigService.class);
+	private static final Logger logger = LoggerFactory.getLogger(ConfigService2.class);
 
 	@Autowired
 	ConfigDao dao;
@@ -24,7 +28,7 @@ public class ConfigService {
 		return dao.getAll();
 	}
 
-	public long add(Config config) {
+	public long add(Config config, Locale locale) {
 		// 参数校验
 		notNull(config, "param.is.null");
 		notEmpty(config.getName(), "name.is.null");
@@ -55,5 +59,14 @@ public class ConfigService {
 
 		return dao.delete(id);
 	}
+	
+	public void doSome() {
+		
+		JsonNode json = null;
+		
+		
+
+	}
+	
 
 }

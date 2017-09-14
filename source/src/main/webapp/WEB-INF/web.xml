@@ -51,7 +51,7 @@
 	<!-- userfilter -->
 	<filter>
 		<filter-name>userinfofilter</filter-name>
-		<filter-class>com.huawei.plm.common.filters.UserFilter</filter-class>
+		<filter-class>plm.common.filters.UserFilter</filter-class>
 	</filter>
 
 	<filter-mapping>

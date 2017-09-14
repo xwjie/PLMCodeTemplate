@@ -1,8 +1,8 @@
-package com.huawei.plm.daos;
+package plm.daos;
 
 import java.util.Collection;
 
-import com.huawei.plm.beans.Config;
+import plm.beans.Config;
 
 public interface ConfigDao {
 

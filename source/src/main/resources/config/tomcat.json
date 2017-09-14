@@ -1,0 +1,21 @@
+{
+	"port": 8005,
+	"shutDown": "SHUTDOWN from json",
+	"services": [
+		{
+			"name": "Kitty from json",
+			"connectors": [
+				{
+					"port": 80888,
+					"protocol": "HTTP/1.1",
+					"executor": null
+				},
+				{
+					"port": 80899,
+					"protocol": "AJP",
+					"executor": null
+				}
+			]
+		}
+	]
+}

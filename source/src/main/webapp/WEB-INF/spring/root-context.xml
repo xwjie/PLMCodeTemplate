@@ -30,8 +30,7 @@
 
 	<bean
 		class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
-		<!-- 指向上面的sysProps Bean -->
-		<property name="staticMethod" value="com.huawei.plm.common.utils.CheckUtil.setResources" />
+		<property name="staticMethod" value="plm.common.utils.CheckUtil.setResources" />
 		<!-- 这里配置参数 -->
 		<property name="arguments" ref="messageSource">
 		</property>

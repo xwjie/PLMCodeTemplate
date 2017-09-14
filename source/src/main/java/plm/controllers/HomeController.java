@@ -1,4 +1,4 @@
-package com.huawei.plm.controllers;
+package plm.controllers;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -6,6 +6,7 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-import com.huawei.plm.common.beans.ResultBean;
-import com.huawei.plm.common.utils.UserUtil;
+import plm.common.beans.ResultBean;
+import plm.common.utils.UserUtil;
+import plm.config.ServerCfg;
 
 /**
  * Handles requests for the application home page.
@@ -69,4 +71,12 @@ public class HomeController {
 		return new ResultBean<String>("input key is " + key);
 	}
 
+	@Autowired
+	ServerCfg cfg;
+
+	@GetMapping(value = "/configTest")
+	@ResponseBody
+	public ResultBean<ServerCfg> configTest() {
+		return new ResultBean<ServerCfg>(cfg);
+	}
 }

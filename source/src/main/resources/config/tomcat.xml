@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Server port="8005" shutDown="SHUTDOWN">
+  <services>
+    <Service name="Kitty">
+      <connectors>
+        <Connector port="8088" protocol="HTTP/1.1"/>
+        <Connector port="8089" protocol="AJP"/>
+      </connectors>
+    </Service>
+  </services>
+</Server>
