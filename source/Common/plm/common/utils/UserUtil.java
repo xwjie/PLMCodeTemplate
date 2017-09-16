@@ -4,6 +4,8 @@ import java.util.Locale;
 
 import org.apache.log4j.MDC;
 
+import plm.common.exceptions.UnloginException;
+
 /**
  * 用户工具类
  * 
@@ -32,8 +34,28 @@ public class UserUtil {
 		MDC.put(KEY_USER, userid);
 	}
 
-	public static String getUser() {
+	/**
+	 * 如果没有登录，返回null
+	 * 
+	 * @return
+	 */
+	public static String getUserIfLogin() {
 		return tlUser.get();
+	}
+
+	/**
+	 * 如果没有登录会抛出异常
+	 * 
+	 * @return
+	 */
+	public static String getUser() {
+		String user = tlUser.get();
+
+		if (user == null) {
+			throw new UnloginException();
+		}
+
+		return user;
 	}
 
 	public static void setLocale(String locale) {

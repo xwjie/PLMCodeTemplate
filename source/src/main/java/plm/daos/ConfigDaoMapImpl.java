@@ -11,6 +11,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
 import plm.beans.Config;
+import plm.common.utils.UserUtil;
 
 /**
  * 使用map实现的示例
@@ -39,6 +40,9 @@ public class ConfigDaoMapImpl implements ConfigDao {
 		// 检查名称是否重复
 		check(null == getByName(config.getName()), "name.repeat");
 
+		// 创建用户
+		config.setCreator(UserUtil.getUser());
+		
 		long id = idSequence.incrementAndGet();
 
 		config.setId(id);
@@ -60,9 +64,33 @@ public class ConfigDaoMapImpl implements ConfigDao {
 		return null;
 	}
 
+	/**
+	 * 删除配置项
+	 */
 	@Override
 	public boolean delete(long id) {
-		return configs.remove(id) != null;
+		Config config = configs.get(id);
+		
+		if(config == null){
+			return false;
+		}
+		
+		// 判断是否可以删除
+		if (canDelete(config)) {
+			return configs.remove(id) != null;			
+		}
+		
+		return false;
+	}
+
+	/**
+	 * 判断逻辑变化可能性大，抽取一个函数
+	 * 
+	 * @param config
+	 * @return
+	 */
+	private boolean canDelete(Config config) {
+		return UserUtil.getUser().equals(config.getCreator());
 	}
 
 }

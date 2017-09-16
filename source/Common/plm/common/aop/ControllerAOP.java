@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import plm.common.beans.ResultBean;
 import plm.common.exceptions.CheckException;
+import plm.common.exceptions.UnloginException;
 
 /**
  * 处理和包装异常
@@ -37,6 +38,9 @@ public class ControllerAOP {
 		if (e instanceof CheckException) {
 			result.setMsg(e.getLocalizedMessage());
 			result.setCode(ResultBean.FAIL);
+		} else if (e instanceof UnloginException) {
+			result.setMsg("Unlogin");
+			result.setCode(ResultBean.NO_LOGIN);
 		} else {
 			logger.error(pjp.getSignature() + " error ", e);
 

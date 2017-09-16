@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import plm.beans.Config;
+import plm.common.utils.UserUtil;
 import plm.daos.ConfigDao;
 
 @Service
@@ -36,7 +37,7 @@ public class ConfigService {
 		notNull(config, "param.is.null");
 		notEmpty(config.getName(), "name.is.null");
 		notEmpty(config.getValue(), "value.is.null");
-
+		
 		// 校验通过后打印重要的日志
 		logger.info("add config:" + config);
 

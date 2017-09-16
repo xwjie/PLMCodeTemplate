@@ -12,7 +12,7 @@
 <body>
 	<h2>晓风轻代码模板（请在chrome测试）</h2>
 	<div id="userinfo"></div>
-	<hr/>
+	<hr />
 	<form id="formLogin" action="login" method="post">
 		用户名：<input name="username">
 		<button type="submit">模拟登陆</button>
@@ -69,6 +69,8 @@
 			// 成功执行操作，失败提示原因
 			if (result.code == 0) {
 				fn(result.data);
+			} else if (result.code == -1) {
+				showError("没有登录");
 			} else {
 				showError(result.msg);
 			}

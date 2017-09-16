@@ -16,8 +16,6 @@
 > * 规范总结
 > * 技术点总结
 
-> * 优雅编码 - 去掉方法中的非业务参数（如user，local等）
-
 
 # 优雅编码 - 日志打印
 
@@ -95,11 +93,14 @@ public static void setUser(String userid) {
 
 然后修改log4j配置，pattern上增加 `%X{user}` ，位置随意。
 
+增加线程相关配置 `[%t]` ，完整参数详见[log4j变量](https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/PatternLayout.html)
+
 ```XML
 <layout class="org.apache.log4j.PatternLayout">
-	<param name="ConversionPattern" value="%-5p: %X{user} - %c - %m%n" />
+	<param name="ConversionPattern" value="[%t]%-d{MM-dd HH:mm:ss,SSS} %-5p: %X{user} - %c - %m%n" />/>
 </layout>
 ```
+
 
 ![日志](/pictures/log1.png) 
 

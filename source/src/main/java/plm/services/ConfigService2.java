@@ -2,8 +2,10 @@ package plm.services;
 
 import static plm.common.utils.CheckUtil.*;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
@@ -20,6 +23,12 @@ import plm.beans.Config;
 import plm.common.exceptions.CheckException;
 import plm.daos.ConfigDao;
 
+/**
+ * ！！！错误代码示例
+ * 
+ * @author 肖文杰
+ *
+ */
 @Service
 public class ConfigService2 {
 
@@ -32,10 +41,19 @@ public class ConfigService2 {
 		return dao.getAll();
 	}
 
-	public boolean delete(long id, Locale local) {
+	/**
+	 * ！！！错误示范 
+	 * 
+	 * 出现和业务无关的参数local
+	 * 
+	 * @param id
+	 * @param locale
+	 * @return
+	 */
+	public boolean delete(long id, Locale locale) {
 		// 参数校验
 		if (id <= 0L) {
-			if (local.equals(Locale.CHINESE)) {
+			if (locale.equals(Locale.CHINESE)) {
 				throw new CheckException("非法的ID：" + id);
 			} else {
 				throw new CheckException("Illegal ID:" + id);
@@ -46,38 +64,6 @@ public class ConfigService2 {
 
 		// 修改操作需要打印操作结果
 		logger.info("delete config success, id:" + id + ", result:" + result);
-
-		return dao.delete(id);
-	}
-
-	public long add(Config config, Locale locale) {
-		// 参数校验
-		notNull(config, "param.is.null");
-		notEmpty(config.getName(), "name.is.null");
-		notEmpty(config.getValue(), "value.is.null");
-
-		// 校验通过后打印重要的日志
-		logger.info("add config:" + config);
-
-		long newId = dao.add(config);
-
-		// 修改操作需要打印操作结果
-		logger.info("add config success, id:" + newId);
-
-		return newId;
-	}
-
-	public boolean delete(long id) {
-		// 参数校验
-		check(id > 0L, "id.error");
-
-		// 校验通过后打印重要的日志
-		logger.info("delete config, id:" + id);
-
-		boolean result = dao.delete(id);
-
-		// 修改操作需要打印操作结果
-		logger.info("delete config success, id:" + id, ", result:" + result);
 
 		return dao.delete(id);
 	}
@@ -99,7 +85,7 @@ public class ConfigService2 {
 			String name = (String) request.getParameter("name");
 			String value = (String) request.getParameter("value");
 
-			//示例代码
+			// 示例代码
 			long newID = add(name, value);
 
 			data.put("code", 0);
@@ -121,8 +107,52 @@ public class ConfigService2 {
 
 	private long add(String name, String value) {
 		logger.info("add config ,name:" + name + ", value:" + value);
-		//XXX
+		// XXX
 		return 1L;
 	}
 
+	/**
+	 * ！！！错误代码示例
+	 * 
+	 * 1. 和业务无关的参数locale，messagesource
+	 * 2. 输入输出都是map，根本不知道输入了什么，返回了什么
+	 * 
+	 * @param params
+	 * @param local
+	 * @param messageSource
+	 * @return
+	 */
+	public Map<String, Object> addConfig(Map<String, Object> params, 
+			Locale locale, MessageSource messageSource) {
+
+		Map<String, Object> data = new HashMap<String, Object>();
+
+		try {
+			String name = (String) params.get("name");
+			String value = (String) params.get("value");
+			
+			//示例代码，省略其他代码
+		}
+		catch (Exception e) {
+			logger.error("add config error", e);
+
+			data.put("code", 99);
+			data.put("msg", messageSource.getMessage("SYSTEMERROR", null, locale));
+		}
+
+		return data;
+	}
+	
+	
+	public void updateUser(Map<String, Object> params){
+		long userId = (Long) params.get("id");
+		String nickname = (String) params.get("nickname");
+		
+		//更新代码
+	}
+	
+	public void updateUserNickName(long userId, String nickname){
+		//更新代码
+	}
+	
 }

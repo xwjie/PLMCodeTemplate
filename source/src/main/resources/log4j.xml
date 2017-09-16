@@ -7,7 +7,7 @@
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern"
-				value="%-d{MM-dd HH:mm:ss,SSS} %-5p: %X{user} - %c - %m%n" />
+				value="[%t]%-d{MM-dd HH:mm:ss,SSS} %-5p:%X{user} - %c - %m%n" />
 		</layout>
 	</appender>
 
