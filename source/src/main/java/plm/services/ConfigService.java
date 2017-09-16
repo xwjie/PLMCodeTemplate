@@ -3,7 +3,6 @@ package plm.services;
 import static plm.common.utils.CheckUtil.*;
 
 import java.util.Collection;
-import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import plm.beans.Config;
-import plm.common.exceptions.CheckException;
 import plm.daos.ConfigDao;
 
 @Service
@@ -87,22 +85,6 @@ public class ConfigService {
 		return 2;
 	}
 
-	public boolean delete(long id, Locale local) {
-		// 参数校验
-		if (id <= 0L) {
-			if (local.equals(Locale.CHINESE)) {
-				throw new CheckException("非法的ID：" + id);
-			} else {
-				throw new CheckException("Illegal ID:" + id);
-			}
-		}
 
-		boolean result = dao.delete(id);
-
-		// 修改操作需要打印操作结果
-		logger.info("delete config success, id:" + id + ", result:" + result);
-
-		return dao.delete(id);
-	}
 
 }

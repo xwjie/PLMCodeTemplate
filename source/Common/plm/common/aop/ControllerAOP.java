@@ -7,6 +7,11 @@ import org.slf4j.LoggerFactory;
 import plm.common.beans.ResultBean;
 import plm.common.exceptions.CheckException;
 
+/**
+ * 处理和包装异常
+ * 
+ * @author 肖文杰
+ */
 public class ControllerAOP {
 	private static final Logger logger = LoggerFactory.getLogger(ControllerAOP.class);
 

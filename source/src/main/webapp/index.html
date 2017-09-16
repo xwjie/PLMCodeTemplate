@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>晓风轻的代码模板</title>
 <style type="text/css">
 .selected {
 	background-color: yellow;
@@ -10,7 +10,9 @@
 </style>
 </head>
 <body>
+	<h2>晓风轻代码模板（请在chrome测试）</h2>
 	<div id="userinfo"></div>
+	<hr/>
 	<form id="formLogin" action="login" method="post">
 		用户名：<input name="username">
 		<button type="submit">模拟登陆</button>
@@ -27,8 +29,8 @@
 	<hr />
 
 	<div id="configs"></div>
+	<b><a href="configTest">读取json的配置文件例子</a></b>
 
-	<h1>接口规范</h1>
 
 	<script id="configTemplate" type="text/html">
 <div>
@@ -49,7 +51,7 @@
 	<script src="resources/lib/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript">
 		function loginDone(data) {
-			$("#userinfo").html("login user:" + data);
+			$("#userinfo").html("当前登录用户：" + data);
 		}
 
 		function switchLang(lang) {
@@ -58,6 +60,7 @@
 			$('.selected').removeClass('selected');
 			$('#lang_' + lang).addClass("selected");
 		}
+
 		function showError(s) {
 			alert(s);
 		}

@@ -3,7 +3,9 @@
 
 # 前言
 
+参考[程序员为什么这么累](https://zhuanlan.zhihu.com/p/28705206)
 
+![](/pictures/main.png) 
 
 # 目录
 

@@ -3,17 +3,20 @@ package plm.daos;
 import static plm.common.utils.CheckUtil.check;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.atomic.AtomicLong;
 
 import javax.annotation.PostConstruct;
 
 import org.springframework.stereotype.Component;
-import org.w3c.dom.Document;
 
 import plm.beans.Config;
 
+/**
+ * 使用map实现的示例
+ * 
+ * @author 肖文杰
+ */
 @Component
 public class ConfigDaoMapImpl implements ConfigDao {
 

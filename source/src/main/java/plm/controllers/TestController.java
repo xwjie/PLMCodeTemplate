@@ -1,66 +1,38 @@
 package plm.controllers;
 
-import java.util.Collection;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import plm.beans.Config;
-import plm.common.beans.ResultBean;
 import plm.common.exceptions.CheckException;
-import plm.services.ConfigService;
 import plm.services.ConfigService2;
-import sun.util.logging.resources.logging;
 
+/**
+ * ！！！错误示范！！！
+ * 
+ * @author 肖文杰
+ *
+ */
 @RequestMapping("/config2")
 @RestController
 public class TestController {
 	//
 	@Autowired
-	ConfigService configService;
+	ConfigService2 configService;
 
 	private static final Logger log = LoggerFactory.getLogger(ConfigService2.class);
 
-	//
-	// @GetMapping("/all")
-	// public ResultBean<Collection<Config>> getAll() {
-	// return new ResultBean<Collection<Config>>(configService.getAll());
-	// }
-	//
-	// @PostMapping("/add")
-	// public ResultBean<Long> add(Config config) {
-	// return new ResultBean<Long>(configService.add(config));
-	// }
-	//
-	// @PostMapping("/delete")
-	// public ResultBean<Boolean> delete2(long id) {
-	// return new ResultBean<Boolean>(configService.delete(id));
-	// }
-	//
-	// @PostMapping("/update")
-	// public Map<String, Object> update(long id, String jsonStr) {
-	//
-	// }
-	//
-	// @PostMapping("/delete")
-	// public Object delete(long id, String lang) {
-	// try {
-	// boolean result = configService.delete(id, local);
-	// return result;
-	// } catch (Exception e) {
-	// log.error(e);
-	// return e.toString();
-	// }
-	// }
-	//
 	//
 	@PostMapping("/delete")
 	public Map<String, Object> delete(long id, String lang) {
@@ -90,5 +62,21 @@ public class TestController {
 		data.put("result", result);
 
 		return data;
+	}
+	
+	/**
+	 * ！！！错误规范
+	 * 增加配置
+	 */
+	@PostMapping("/add")
+	public void addConfig(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		response.setContentType("application/json;charset=UTF-8");
+		
+		//返回了一个json格式的字符串。。。
+		String result = configService.add(request);
+		
+		response.getOutputStream().write(result.getBytes());
+		response.getOutputStream().flush();
 	}
 }

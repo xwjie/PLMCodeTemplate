@@ -4,6 +4,12 @@ import java.io.File;
 
 import com.thoughtworks.xstream.XStream;
 
+/**
+ * XML工具类
+ * 
+ * @author 肖文杰
+ *
+ */
 public class XMLConfig {
 
 	public static String toXML(Object obj) {

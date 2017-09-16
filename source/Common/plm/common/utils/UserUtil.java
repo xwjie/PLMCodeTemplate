@@ -4,6 +4,12 @@ import java.util.Locale;
 
 import org.apache.log4j.MDC;
 
+/**
+ * 用户工具类
+ * 
+ * @author 肖文杰
+ *
+ */
 public class UserUtil {
 
 	private final static ThreadLocal<String> tlUser = new ThreadLocal<String>();

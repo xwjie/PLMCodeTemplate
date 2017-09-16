@@ -4,6 +4,12 @@ import org.springframework.context.MessageSource;
 
 import plm.common.exceptions.CheckException;
 
+/**
+ * 校验工具类
+ * 
+ * @author 肖文杰
+ *
+ */
 public class CheckUtil {
 	private static MessageSource resources;
 
