@@ -42,7 +42,7 @@ public class ConfigDaoMapImpl implements ConfigDao {
 
 		// 创建用户
 		config.setCreator(UserUtil.getUser());
-		
+
 		long id = idSequence.incrementAndGet();
 
 		config.setId(id);
@@ -70,17 +70,15 @@ public class ConfigDaoMapImpl implements ConfigDao {
 	@Override
 	public boolean delete(long id) {
 		Config config = configs.get(id);
-		
-		if(config == null){
+
+		if (config == null) {
 			return false;
 		}
-		
+
 		// 判断是否可以删除
-		if (canDelete(config)) {
-			return configs.remove(id) != null;			
-		}
-		
-		return false;
+		check(canDelete(config), "no.permission");
+
+		return configs.remove(id) != null;
 	}
 
 	/**
