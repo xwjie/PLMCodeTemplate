@@ -1,23 +1,51 @@
 # PLMCodeTemplate
-给部门制定的代码框架模板
+给部门制定的代码框架模板。追求工匠精神，编写简单代码。
 
 # 前言
 
-参考[程序员为什么这么累](https://zhuanlan.zhihu.com/p/28705206)
+参考 `[程序员为什么这么累](https://zhuanlan.zhihu.com/p/28705206)` 系列文章，里面有详细的讲解，评论里面有不同观点的讨论，建议也看看，相信对你有帮助。
 
 ![](/pictures/main.png) 
 
 # 目录
 
-> * 优雅编码 - 去掉方法中的非业务参数（如user，local等）
-> * 优雅编码 - 参数校验和异常处理
-> * 优雅编码 - 日志打印
+> * 优雅编码 - 接口定义规范
 > * 优雅编码 - ResultBean的重要性和约束
-> * 规范总结
+> * 优雅编码 - 异常处理
+> * 优雅编码 - 参数校验和国际化规范
+> * 优雅编码 - 日志打印
 > * 技术点总结
+> * 对开发组长的要求
+> * 对开发人员的建议
 
+# 优雅编码 - 接口定义规范
+
+请阅读 [我的编码习惯 - 接口定义](https://zhuanlan.zhihu.com/p/28708259) ，不要犯里面的错误。
+
+1. 所有接口都必须返回ResultBean，就是说一开始就考虑好成功和失败的场景。
+2. ResultBean只允许出现在controller，不允许到处传。
+3. 不要出现map，json等这种复杂对象做为输入和输出。
+4. 对外接口可以考虑使用细分错误码，对内接口使用异常信息即可（方便编码）。
+
+
+# 优雅编码 - ResultBean的重要性和约束
+
+请阅读 [我的编码习惯 - Controller规范](https://zhuanlan.zhihu.com/p/28717374)。
+
+这里都是对开发组长的要求。
+
+
+# 优雅编码 - 异常处理
+
+请阅读 [我的编码习惯 - 异常处理](https://zhuanlan.zhihu.com/p/29005176)。
+
+开发人员不准捕获异常，直接抛出。
+
+其他对开发组长的要求请见上面的文章和代码。
 
 # 优雅编码 - 日志打印
+
+请阅读 [我的编程习惯 - 日志建议](https://zhuanlan.zhihu.com/p/28629319)。
 
 日志打印我们部门中普通有2个极端，首先是什么都不打印，出了问题之后一看后台啥也没有，然后修改，什么地方都打印，一出错误，找日志找半天，定位一个问题要1,2个小时。前几年出现过几次前台出错没有日志，测试环境无法重现，把日志加上走个变更再操作再看日志定位的事情，当然现在这种情况比较少了。
 
@@ -32,12 +60,12 @@
 logger.info("edit user, opType:" + opType);
 
 if (opType == CREATE) {
-	// 新增操作
+  // 新增操作
 } else if (opType == UPDATE) {
-	// 修改操作
+  // 修改操作
 } else {
-	// 错误的类型，抛出异常
-	throw new IllegalArgumentException("unknown optype:" + opType);
+  // 错误的类型，抛出异常
+  throw new IllegalArgumentException("unknown optype:" + opType);
 }
 ```
 
@@ -52,9 +80,9 @@ if (opType == CREATE) {
 ```Java
 private void deleteDoc(long id) {
 
-	logger.info("delete doc, id:" + id);
+  logger.info("delete doc, id:" + id);
 
-	// 删除代码
+  // 删除代码
 }
 ```
 
@@ -84,10 +112,10 @@ private final static ThreadLocal<String> tlUser = new ThreadLocal<>();
 public static final String KEY_USER = "user";
 
 public static void setUser(String userid) {
-	tlUser.set(userid);
-	
-	// 把用户信息放到log4j
-	MDC.put(KEY_USER, userid);
+  tlUser.set(userid);
+  
+  // 把用户信息放到log4j
+  MDC.put(KEY_USER, userid);
 }
 ```
 
@@ -97,7 +125,7 @@ public static void setUser(String userid) {
 
 ```XML
 <layout class="org.apache.log4j.PatternLayout">
-	<param name="ConversionPattern" value="[%t]%-d{MM-dd HH:mm:ss,SSS} %-5p: %X{user} - %c - %m%n" />/>
+  <param name="ConversionPattern" value="[%t]%-d{MM-dd HH:mm:ss,SSS} %-5p: %X{user} - %c - %m%n" />/>
 </layout>
 ```
 
@@ -105,21 +133,15 @@ public static void setUser(String userid) {
 ![日志](/pictures/log1.png) 
 
 > 没有用户信息的时候并不会报错，而是空串。
+> 不要一开始就关注日志级别和日志性能，规则越多越难落地。
 
-## 编程规范
-1. 所有的接口返回ResultBean，并且ResultBean只允许出现在Controller，不允许传到services和dao里面（太影响可读性了）
-2. 
+# 优雅编码 - 参数校验和国际化规范
 
-## 接口规范
-1. 所有接口都必须返回ResultBean，就是说一开始就考虑好成功和失败的场景。
-2. ResultBean只允许出现在controller，不允许到处传。
-3. 对外接口可以考虑使用细分错误码，对内接口使用异常信息即可
+请阅读 [我的编码习惯 - 参数校验和国际化规范](https://zhuanlan.zhihu.com/p/29129469)。
 
-## 日志打印规范
-1. 关键参数必须打印日志
-2. 对一个集合处理的时候必须打印处理的数据量
-3. 可能耗时长的函数需要在前后打印日志以方便收集耗时
-4. 
+1. 使用ThreadLoacl去掉非业务相关的代码。由于tomcat线程池线程重用问题，记得清空。
+2. 国际化参数不要放到每一个url上。
+
 
 # 技术点总结
 
@@ -127,3 +149,16 @@ public static void setUser(String userid) {
 > log4j的MDC使用
 > JDK的ThreadLocal的使用
 
+# 对开发组长的要求
+
+定义好代码框架，不要做太多、太细的要求，否则无法落地。这篇文章中，规范中要求做到的少，不准做的多，落地相对容易。
+
+1. 定义好统一的接口格式、异常、常量等
+2. 多使用AOP和ThreadLocal简化代码
+3. 亲自编写校验函数和工具类
+4. 代码评审中，严格控制函数的参数，不允许出现复杂参数和业务无关的参数
+
+# 对开发人员的建议
+
+1. 不要养成面对debug编程，用日志代替debug
+2. 不要一上来就做整个功能测试，要一行一行代码一个一个函数测试
