@@ -3,7 +3,7 @@
 
 # 前言
 
-参考 `[程序员为什么这么累](https://zhuanlan.zhihu.com/p/28705206)` 系列文章，里面有详细的讲解，评论里面有不同观点的讨论，建议也看看，相信对你有帮助。
+参考 [`程序员为什么这么累`](https://zhuanlan.zhihu.com/p/28705206) 系列文章，里面有详细的讲解，评论里面有不同观点的讨论，建议也看看，相信对你有帮助。
 
 ![](/pictures/main.png) 
 
@@ -137,17 +137,18 @@ public static void setUser(String userid) {
 
 # 优雅编码 - 参数校验和国际化规范
 
-请阅读 [我的编码习惯 - 参数校验和国际化规范](https://zhuanlan.zhihu.com/p/29129469)。
+请阅读 [我的编码习惯 - 参数校验和国际化规范] (https://zhuanlan.zhihu.com/p/29129469)。
 
-1. 使用ThreadLoacl去掉非业务相关的代码。由于tomcat线程池线程重用问题，记得清空。
-2. 国际化参数不要放到每一个url上。
+1. 调用自己的校验函数，参数上不要出现local，messagesource
+2. 不正确的参数值要提示出来，减少定位时间
+3. 国际化参数不要放到每一个url上
 
 
 # 技术点总结
 
-> spring的aop的使用
-> log4j的MDC使用
-> JDK的ThreadLocal的使用
+1. spring的aop的使用
+2. log4j的MDC使用
+3. JDK的ThreadLocal的使用
 
 # 对开发组长的要求
 
