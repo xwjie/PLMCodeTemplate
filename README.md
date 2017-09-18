@@ -137,7 +137,7 @@ public static void setUser(String userid) {
 
 # 优雅编码 - 参数校验和国际化规范
 
-请阅读 [我的编码习惯 - 参数校验和国际化规范] (https://zhuanlan.zhihu.com/p/29129469)。
+请阅读 [我的编码习惯 - 参数校验和国际化规范](https://zhuanlan.zhihu.com/p/29129469) 。
 
 1. 调用自己的校验函数，参数上不要出现local，messagesource
 2. 不正确的参数值要提示出来，减少定位时间
