@@ -1,9 +1,11 @@
 # PLMCodeTemplate
 给部门制定的代码框架模板。追求工匠精神，编写简单代码。
 
+**[`SpringBoot版本在这里`](https://github.com/xwjie/ElementVueSpringbootCodeTemplate)，持续更新中，后续加入vue+element的代码模板，欢迎加星加watch。**
+
 # 前言
 
-参考 [`程序员为什么这么累`](https://zhuanlan.zhihu.com/p/28705206) 系列文章，里面有详细的讲解，评论里面有不同观点的讨论，建议也看看，相信对你有帮助。
+参考 ** [`程序员你为什么这么累`](https://zhuanlan.zhihu.com/p/28705206) 系列文章 **，里面有详细的讲解，评论里面有不同观点的讨论，建议也看看，相信对你有帮助。
 
 ![](/pictures/main.png) 
 
