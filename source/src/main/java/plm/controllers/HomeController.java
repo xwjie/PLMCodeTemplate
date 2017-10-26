@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import plm.common.beans.ResultBean;
 import plm.common.utils.UserUtil;
@@ -25,7 +26,6 @@ import plm.config.ServerCfg;
  * Handles requests for the application home page.
  */
 @Controller
-@SessionAttributes(UserUtil.KEY_USER)
 public class HomeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
@@ -38,7 +38,8 @@ public class HomeController {
 		logger.info("Welcome home! The client locale is {}.", locale);
 
 		Date date = new Date();
-		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
+				DateFormat.LONG, locale);
 
 		String formattedDate = dateFormat.format(date);
 
@@ -49,11 +50,11 @@ public class HomeController {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	@ResponseBody
-	public ResultBean<String> login(Model model, String username) {
+	public ResultBean<String> login(HttpSession session, String username) {
 		logger.info("login user:" + username);
 
 		// TODO 只是模拟登陆
-		model.addAttribute(UserUtil.KEY_USER, username);
+		session.setAttribute(UserUtil.KEY_USER, username);
 
 		return new ResultBean<String>(username);
 	}
@@ -65,7 +66,8 @@ public class HomeController {
 		logger.info("resttest, key=" + key);
 		try {
 			Thread.sleep(2000);
-		} catch (InterruptedException e) {
+		}
+		catch (InterruptedException e) {
 			e.printStackTrace();
 		}
 		return new ResultBean<String>("input key is " + key);

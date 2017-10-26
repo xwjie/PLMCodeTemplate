@@ -165,3 +165,6 @@ public static void setUser(String userid) {
 
 1. 不要养成面对debug编程，用日志代替debug
 2. 不要一上来就做整个功能测试，要一行一行代码一个一个函数测试
+
+# 删除 @SessionAttribute
+用它来存放session的东西是个坑，无法logout
