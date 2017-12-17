@@ -27,9 +27,11 @@ public class UserFilter implements Filter {
 
 		fillUserInfo((HttpServletRequest) request);
 
-		chain.doFilter(request, response);
-
-		clearAllUserInfo();
+		try {
+			chain.doFilter(request, response);
+		} finally {
+			clearAllUserInfo();
+		}
 	}
 
 	private void clearAllUserInfo() {
@@ -50,7 +52,7 @@ public class UserFilter implements Filter {
 		if (locale != null) {
 			UserUtil.setLocale(locale);
 		}
-	} 
+	}
 
 	private String getLocaleFromCookies(HttpServletRequest request) {
 		Cookie[] cookies = request.getCookies();
@@ -69,7 +71,7 @@ public class UserFilter implements Filter {
 	}
 
 	private String getUserFromSession(HttpServletRequest request) {
-		//TODO 如果不参加session，model.addAttribute(UserUtil.KEY_USER, username);报错
+		// TODO 如果不参加session，model.addAttribute(UserUtil.KEY_USER, username);报错
 		HttpSession session = request.getSession(true);
 
 		if (session == null) {

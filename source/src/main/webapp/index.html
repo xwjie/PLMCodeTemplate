@@ -10,7 +10,7 @@
 </style>
 </head>
 <body>
-	<h2>晓风轻代码模板（请在chrome测试）</h2>
+	<h2>晓风轻代码模板（请在chrome测试) <a href="https://github.com/xwjie/PLMCodeTemplate">https://github.com/xwjie/PLMCodeTemplate</a></h2>
 	<div id="userinfo"></div>
 	<hr />
 	<form id="formLogin" action="login" method="post">
@@ -76,6 +76,7 @@
 			}
 		}
 
+		// 根据id删除配置项
 		function deleteConfig(id) {
 			$.post('config/delete', {
 				id : id
@@ -85,6 +86,7 @@
 			});
 		}
 
+		// 查询所有配置项记录
 		function fetchAllConfigs() {
 			$.getJSON('config/all', function(result) {
 				handlerResult(result, renderConfigs);

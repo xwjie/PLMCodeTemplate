@@ -1,6 +1,8 @@
 package plm.services;
 
-import static plm.common.utils.CheckUtil.*;
+import static plm.common.utils.CheckUtil.check;
+import static plm.common.utils.CheckUtil.notEmpty;
+import static plm.common.utils.CheckUtil.notNull;
 
 import java.util.Collection;
 
@@ -10,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import plm.beans.Config;
-import plm.common.utils.UserUtil;
 import plm.daos.ConfigDao;
 
 @Service
@@ -37,7 +38,7 @@ public class ConfigService {
 		notNull(config, "param.is.null");
 		notEmpty(config.getName(), "name.is.null");
 		notEmpty(config.getValue(), "value.is.null");
-		
+
 		// 校验通过后打印重要的日志
 		logger.info("add config:" + config);
 
@@ -58,34 +59,43 @@ public class ConfigService {
 		// 修改操作需要打印操作结果
 		logger.info("delete config success, id:" + id + ", result:" + result);
 
-		return dao.delete(id);
+		return result;
 	}
 
-	public boolean delete2(long id) {
+	/**
+	 * 打印日志示例代码
+	 * 
+	 * @param id
+	 * @return
+	 */
+	public boolean someOpration(long id) {
 		// XXX 示例代码
-		int userType = getCurrentUserType();
+		int opType = getSomeFlag();
 
 		// 校验通过后打印重要的日志
-		logger.info("delete config, id: " + id + ", userType: " + userType);
+		logger.info("someOpration, id: " + id + ", opType: " + opType);
 
 		boolean result = false;
 
-		if (userType == 1) {
+		if (opType == 1) {
 			// 做这些事情
 		} else {
 			// 做那些事情
 		}
 
 		// 修改操作需要打印操作结果
-		logger.info("delete config success, id:" + id + ", result:" + result);
+		logger.info("someOpration success, id:" + id + ", result:" + result);
 
 		return result; // 示例代码
 	}
 
-	private int getCurrentUserType() {
+	private int getSomeFlag() {
 		return 2;
 	}
 
+	public void update(Config config) {
+		// TODO Auto-generated method stub
 
+	}
 
 }

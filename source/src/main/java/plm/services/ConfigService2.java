@@ -37,12 +37,15 @@ public class ConfigService2 {
 	@Autowired
 	ConfigDao dao;
 
+	@Autowired
+	MessageSource messageSource;
+
 	public Collection<Config> getAll() {
 		return dao.getAll();
 	}
 
 	/**
-	 * ！！！错误示范 
+	 * ！！！错误示范
 	 * 
 	 * 出现和业务无关的参数local
 	 * 
@@ -114,26 +117,29 @@ public class ConfigService2 {
 	/**
 	 * ！！！错误代码示例
 	 * 
-	 * 1. 和业务无关的参数locale，messagesource
-	 * 2. 输入输出都是map，根本不知道输入了什么，返回了什么
+	 * 1. 和业务无关的参数locale，messagesource 2. 输入输出都是map，根本不知道输入了什么，返回了什么
 	 * 
 	 * @param params
 	 * @param local
 	 * @param messageSource
 	 * @return
 	 */
-	public Map<String, Object> addConfig(Map<String, Object> params, 
-			Locale locale, MessageSource messageSource) {
+	public Map<String, Object> addConfig(Map<String, Object> params) {
 
 		Map<String, Object> data = new HashMap<String, Object>();
 
+		// 语言（中英文提示不同）
+		Locale locale = null;
+
 		try {
+			String lang = (String) params.get("lang");
+			locale = "zh".equalsIgnoreCase(lang) ? Locale.CHINESE : Locale.ENGLISH;
+
 			String name = (String) params.get("name");
 			String value = (String) params.get("value");
-			
-			//示例代码，省略其他代码
-		}
-		catch (Exception e) {
+
+			// 示例代码，省略其他代码
+		} catch (Exception e) {
 			logger.error("add config error", e);
 
 			data.put("code", 99);
@@ -142,17 +148,25 @@ public class ConfigService2 {
 
 		return data;
 	}
-	
-	
-	public void updateUser(Map<String, Object> params){
+
+	public void updateUser(Map<String, Object> params) {
 		long userId = (Long) params.get("id");
 		String nickname = (String) params.get("nickname");
-		
-		//更新代码
+
+		// 更新代码
 	}
-	
-	public void updateUserNickName(long userId, String nickname){
-		//更新代码
+
+	public void updateUserNickName(long userId, String nickname) {
+		// 更新代码
 	}
-	
+
+	public boolean add(Map<String, Object> params) {
+		String name = (String) params.get("name");
+		String value = (String) params.get("value");
+
+		// 执行新增操作
+
+		return true;
+	}
+
 }

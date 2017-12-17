@@ -1,4 +1,4 @@
-package plm.daos;
+package plm.daos.impl;
 
 import static plm.common.utils.CheckUtil.check;
 
@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import plm.beans.Config;
 import plm.common.utils.UserUtil;
+import plm.daos.ConfigDao;
 
 /**
  * 使用map实现的示例

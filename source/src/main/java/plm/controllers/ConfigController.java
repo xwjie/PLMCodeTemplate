@@ -12,6 +12,11 @@ import plm.beans.Config;
 import plm.common.beans.ResultBean;
 import plm.services.ConfigService;
 
+/**
+ * 配置对象处理器
+ * 
+ * @author 晓风轻 https://github.com/xwjie/PLMCodeTemplate
+ */
 @RequestMapping("/config")
 @RestController
 public class ConfigController {
@@ -24,13 +29,31 @@ public class ConfigController {
 		return new ResultBean<Collection<Config>>(configService.getAll());
 	}
 
+	/**
+	 * 新增数据, 返回新对象的id
+	 * 
+	 * @param config
+	 * @return
+	 */
 	@PostMapping("/add")
 	public ResultBean<Long> add(Config config) {
 		return new ResultBean<Long>(configService.add(config));
 	}
 
+	/**
+	 * 根据id删除对象
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@PostMapping("/delete")
 	public ResultBean<Boolean> delete(long id) {
 		return new ResultBean<Boolean>(configService.delete(id));
+	}
+
+	@PostMapping("/update")
+	public ResultBean<Boolean> update(Config config) {
+		configService.update(config);
+		return new ResultBean<Boolean>(true);
 	}
 }
