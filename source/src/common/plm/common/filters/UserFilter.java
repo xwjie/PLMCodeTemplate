@@ -25,11 +25,13 @@ public class UserFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
+		//得到用户个人相关的信息（登陆的用户，用户的语言）
 		fillUserInfo((HttpServletRequest) request);
 
 		try {
 			chain.doFilter(request, response);
 		} finally {
+			// 由于tomcat线程重用，记得清空
 			clearAllUserInfo();
 		}
 	}
@@ -49,7 +51,8 @@ public class UserFilter implements Filter {
 		// 语言信息
 		String locale = getLocaleFromCookies(request);
 
-		if (locale != null) {
+		// 放入到threadlocal，同一个线程任何地方都可以拿出来
+  		if (locale != null) {
 			UserUtil.setLocale(locale);
 		}
 	}
