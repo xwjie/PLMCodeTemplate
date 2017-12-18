@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,6 +22,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import plm.beans.Config;
 import plm.common.exceptions.CheckException;
+import plm.common.utils.UserUtil;
 import plm.daos.ConfigDao;
 
 /**
@@ -167,6 +169,53 @@ public class ConfigService2 {
 		// 执行新增操作
 
 		return true;
+	}
+
+	/**
+	 * !!错误范例：随便捕获异常加空判断，代码最大的隐患
+	 * 
+	 * @param id
+	 * @param value
+	 */
+	public void updateConfigValue(long id, String value) {
+		Config config = null;
+
+		try {
+			config = findConfigById(id);
+		} catch (Exception e) {
+			logger.error("findConfigByName error", e);
+		}
+
+		if (config != null) {
+			config.setValue(value);
+
+			// 执行数据库保存操作
+			doSave(config);
+		}
+	}
+
+	/**
+	 * 正确写法
+	 * 
+	 * @param name
+	 * @param value
+	 */
+	public void updateConfigValue2(long id, String value) {
+		Config config = findConfigById(id);
+
+		config.setValue(value);
+
+		// 执行数据库保存操作
+		doSave(config);
+	}
+
+	private void doSave(Config config) {
+		// TODO Auto-generated method stub
+	}
+
+	private Config findConfigById(long id) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
