@@ -213,7 +213,26 @@ public class ConfigService2 {
 		// TODO Auto-generated method stub
 	}
 
-	private Config findConfigById(long id) throws Exception {
+	private Config findConfigById(long id) throws CheckException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/**
+	 * 错误演示：配置代码和业务代码耦合
+	 */
+	public void someServiceCode() {
+		// 从某个地方得到配置的json对象
+		JSONObject configJson = readConfig();
+
+		// 如果某个配置项为true
+		if (configJson.getBooleanValue("someFlag")) {
+			// 执行某些操作
+		}
+
+	}
+
+	private JSONObject readConfig() {
 		// TODO Auto-generated method stub
 		return null;
 	}
