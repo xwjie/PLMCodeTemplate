@@ -1,5 +1,7 @@
 package plm.common.utils;
 
+import static plm.common.utils.StringUtil.isEmpty;
+
 import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
