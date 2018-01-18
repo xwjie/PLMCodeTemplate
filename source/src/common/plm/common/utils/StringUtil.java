@@ -5,8 +5,8 @@ import java.util.Collection;
 /**
  * 工具类的规范例子
  * 
- * @author  晓风轻
- * 
+ * @author  晓风轻 https://xwjie.github.io/PLMCodeTemplate/
+ *
  */
 public class StringUtil {
 

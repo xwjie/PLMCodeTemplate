@@ -17,7 +17,7 @@ import plm.daos.ConfigDao;
 /**
  * 使用map实现的示例
  * 
- * @author 肖文杰
+ * @author 肖文杰  https://xwjie.github.io/PLMCodeTemplate/
  */
 @Component
 public class ConfigDaoMapImpl implements ConfigDao {

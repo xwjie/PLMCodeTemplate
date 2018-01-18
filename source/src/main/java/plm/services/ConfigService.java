@@ -14,6 +14,12 @@ import org.springframework.stereotype.Service;
 import plm.beans.Config;
 import plm.daos.ConfigDao;
 
+/**
+ * 处理配置项的服务类
+ * 
+ * @author 肖文杰 https://xwjie.github.io/PLMCodeTemplate/
+ *
+ */
 @Service
 public class ConfigService {
 

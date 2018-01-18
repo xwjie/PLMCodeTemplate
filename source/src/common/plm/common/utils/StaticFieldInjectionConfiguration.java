@@ -11,8 +11,8 @@ import org.springframework.stereotype.Component;
 /**
  * 工具类的注入
  * 
- * @author  肖文杰
- * 
+ * @author 肖文杰 https://xwjie.github.io/PLMCodeTemplate/
+ *
  */
 @Component
 public class StaticFieldInjectionConfiguration {

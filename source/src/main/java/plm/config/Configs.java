@@ -12,6 +12,13 @@ import org.springframework.context.annotation.Configuration;
 import com.alibaba.fastjson.JSON;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+/**
+ *  这里演示的是如果在项目中做配置。
+ *  
+ *  重点是要引入【中介】，业务代码不要直接和配置代码耦合。
+ * 
+ * @author 晓风轻  https://xwjie.github.io/PLMCodeTemplate/
+ */
 @Configuration
 public class Configs {
 

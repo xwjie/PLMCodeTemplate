@@ -7,7 +7,7 @@ import plm.common.exceptions.CheckException;
 /**
  * 校验工具类
  * 
- * @author 肖文杰
+ * @author 肖文杰 https://xwjie.github.io/PLMCodeTemplate/
  *
  */
 public class CheckUtil {

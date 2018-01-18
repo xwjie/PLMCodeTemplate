@@ -28,7 +28,7 @@ import plm.daos.ConfigDao;
 /**
  * ！！！错误代码示例
  * 
- * @author 肖文杰
+ * @author 肖文杰  https://xwjie.github.io/PLMCodeTemplate/
  *
  */
 @Service

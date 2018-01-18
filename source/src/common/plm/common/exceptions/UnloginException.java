@@ -1,5 +1,11 @@
 package plm.common.exceptions;
 
+/**
+ * 没有登陆异常
+ * 
+ * @author 肖文杰 https://xwjie.github.io/PLMCodeTemplate/
+ *
+ */
 public class UnloginException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;

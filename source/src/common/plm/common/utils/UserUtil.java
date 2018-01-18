@@ -9,7 +9,7 @@ import plm.common.exceptions.UnloginException;
 /**
  * 用户工具类
  * 
- * @author 肖文杰
+ * @author 肖文杰 https://xwjie.github.io/PLMCodeTemplate/
  *
  */
 public class UserUtil {
