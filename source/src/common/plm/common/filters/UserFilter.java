@@ -25,7 +25,7 @@ public class UserFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
-		//得到用户个人相关的信息（登陆的用户，用户的语言）
+		// 得到用户个人相关的信息（登陆的用户，用户的语言）
 		fillUserInfo((HttpServletRequest) request);
 
 		try {
@@ -52,7 +52,7 @@ public class UserFilter implements Filter {
 		String locale = getLocaleFromCookies(request);
 
 		// 放入到threadlocal，同一个线程任何地方都可以拿出来
-  		if (locale != null) {
+		if (locale != null) {
 			UserUtil.setLocale(locale);
 		}
 	}
@@ -74,8 +74,7 @@ public class UserFilter implements Filter {
 	}
 
 	private String getUserFromSession(HttpServletRequest request) {
-		// TODO 如果不参加session，model.addAttribute(UserUtil.KEY_USER, username);报错
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession(false);
 
 		if (session == null) {
 			return null;

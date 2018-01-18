@@ -11,6 +11,12 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 
+/**
+ * 工具类编写范例，使用重载编写不同参数类型的函数组
+ * 
+ * @author 肖文杰 https://github.com/xwjie/PLMCodeTemplate
+ *
+ */
 public class FileUtil {
 
 	private static final String DEFAULT_CHARSET = "UTF-8";
@@ -38,7 +44,7 @@ public class FileUtil {
 	}
 
 	public static List<String> readFile2List(InputStream inputStream, String charset) throws IOException {
-		List<String> sb = new ArrayList<String>();
+		List<String> list = new ArrayList<String>();
 
 		BufferedReader br = null;
 		try {
@@ -46,13 +52,13 @@ public class FileUtil {
 
 			String s = null;
 			while ((s = br.readLine()) != null) {
-				sb.add(s);
+				list.add(s);
 			}
 		} finally {
 			IOUtils.closeQuietly(br);
 		}
 
-		return sb;
+		return list;
 	}
 
 }

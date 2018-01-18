@@ -1,7 +1,6 @@
 package plm.common.utils;
 
 import org.springframework.context.MessageSource;
-import org.springframework.util.StringUtils;
 
 import plm.common.exceptions.CheckException;
 

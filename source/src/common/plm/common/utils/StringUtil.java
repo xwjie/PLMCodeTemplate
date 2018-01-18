@@ -5,7 +5,7 @@ import java.util.Collection;
 /**
  * 工具类的规范例子
  * 
- * @author  肖文杰
+ * @author  晓风轻
  * 
  */
 public class StringUtil {
