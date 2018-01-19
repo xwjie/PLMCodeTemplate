@@ -48,7 +48,6 @@ public class CongfigServiceTest {
 		long newId = configService.add(config);
 		assertTrue(newId > 1);
 
-		// 再次新增，报错
 	}
 
 }
