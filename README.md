@@ -1,13 +1,14 @@
 # PLMCodeTemplate
+
 给部门制定的代码框架模板。追求工匠精神，编写简单代码。
 
-**[`SpringBoot版本在这里`](https://github.com/xwjie/ElementVueSpringbootCodeTemplate)，持续更新中，后续加入vue+element的代码模板，欢迎加星加watch。**
+[`SpringBoot版本在这里`](https://github.com/xwjie/ElementVueSpringbootCodeTemplate)**，持续更新中，后续加入vue+element的代码模板，欢迎加星加watch。**
 
 # 前言
 
 参考 [**程序员你为什么这么累**](https://zhuanlan.zhihu.com/p/28705206) 系列文章 ，里面有详细的讲解，评论里面有不同观点的讨论，建议也看看，相信对你有帮助。
 
-![](/pictures/main.png) 
+![](/pictures/main.png)
 
 # 目录
 
@@ -31,13 +32,11 @@
 4. 不要出现 map ，json 等复杂对象做为输入和输出。
 5. 不要出现 local ，messagesource 等和业务无关的参数。
 
-
 # 优雅编码 - ResultBean的重要性和约束
 
 请阅读 [我的编码习惯 - Controller规范](https://zhuanlan.zhihu.com/p/28717374)。
 
 这里都是对开发组长的要求。使用 `AOP` 统一处理异常，并根据不同异常返回不同返回码。尤其关注非用户自己抛出的异常。
-
 
 # 优雅编码 - 异常处理
 
@@ -46,13 +45,11 @@
 1. 开发人员不准捕获异常，直接抛出。
 2. 少加空判断。如果对象不应该为空，就不需要加空判断，加了空判断就要测试为空和不为空二种情况。
 
-
 其他对开发组长的要求请见上面的文章和代码。
 
 # 优雅编码 - 日志打印
 
 请阅读 [我的编程习惯 - 日志建议](https://zhuanlan.zhihu.com/p/28629319)。
-
 
 ## 分支语句的变量需要打印变量
 
@@ -75,7 +72,7 @@ if (opType == CREATE) {
 如果没有打印optype的值，出了问题你只能从前找到后，看optype是什么了，很浪费时间。
 
 > 重要建议：养成增加else语句，把不合法参数抛出异常的好习惯。
-
+>
 > 抛异常的时候把对应的非法值抛出来。
 
 ## 修改操作需要打印操作的对象
@@ -116,7 +113,7 @@ public static final String KEY_USER = "user";
 
 public static void setUser(String userid) {
   tlUser.set(userid);
-  
+
   // 把用户信息放到log4j
   MDC.put(KEY_USER, userid);
 }
@@ -130,15 +127,14 @@ public static void setUser(String userid) {
 </layout>
 ```
 
-
 最终效果图：
 
-![日志](/pictures/log1.png) 
+![日志](/pictures/log1.png)
 
 > 没有用户信息的时候并不会报错，而是空串。
-
+>
 > 不要一开始就关注日志级别和日志性能，规则越多越难落地。
-
+>
 > 必须记得清空。
 
 ## 集群环境下需要在静态服务器增加配置，返回处理机器的信息到响应头
@@ -167,9 +163,7 @@ server{
 
 效果图：
 
-![nginx](/pictures/nginx.png) 
-
-
+![nginx](/pictures/nginx.png)
 
 # 优雅编码 - 参数校验和国际化规范
 
@@ -213,3 +207,6 @@ server{
 2. 不要一上来就做整个功能测试，要一行一行代码一个一个函数测试
 3. 谨慎捕获异常和加空判断，加了空判断就要测试为空和不为空二种情况
 4. 日志也是代码的一部分，提交代码前先运行看一遍操作日志
+
+
+
