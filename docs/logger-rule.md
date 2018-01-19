@@ -13,20 +13,20 @@
 
 ```
 upstream code_server{
-	server 127.0.0.1:8080;
-	server 127.0.0.1:18080;
-	ip_hash;
-	keepalive 32;
+    server 127.0.0.1:8080;
+    server 127.0.0.1:18080;
+    ip_hash;
+    keepalive 32;
 }
 
 server{
-	listen 80;
-	server_name xwjie.com;
+    listen 80;
+    server_name xwjie.com;
 
-	location /plm {
-		proxy_pass http://code_server/plm;
-		add_header x-slave $upstream_addr;
-	}
+    location /plm {
+        proxy_pass http://code_server/plm;
+        add_header x-slave $upstream_addr;
+    }
 
 }
 ```
@@ -47,9 +47,17 @@ server{
 </layout>
 ```
 
+**效果图：**![](/pictures/nginx.png)
+
+# 日志打印点
 
 
 
+
+
+# **最终日志效果**
+
+![](/pictures/log1.png)
 
 
 
