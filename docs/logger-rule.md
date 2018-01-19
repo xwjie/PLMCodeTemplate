@@ -7,9 +7,9 @@
 
 ## 找到对应的机器
 
-集群环境我们需要在中间服务器的Nginx/Apache配置，让前台就可以知道代码是在哪个节点执行的。
+集群环境我们需要在中间服务器的Nginx/Apache配置，让**前台**就可以知道代码是在哪个节点执行的。
 
-以Nginx举例，如下配置
+以Nginx举例，如下配置（主要是**upstream\_addr**）
 
 ```
 upstream code_server{
@@ -33,9 +33,13 @@ server{
 
 ## 找到用户做了什么
 
-使用log4j的MDC\(Mapped Diagnostic Context\)类，然后修改日志格式。需要在Filter的时候把用户信息放进去，这样每一条日志就带了用户信息。
+使用log4j的**MDC**\(Mapped Diagnostic Context\)类，然后修改日志格式。需要在入口Filter的时候把用户信息放进去，这样每一条日志就带了用户信息。
+
+
 
 **Filter中填充用户信息：**
+
+
 
 **日志格式配置：**
 
