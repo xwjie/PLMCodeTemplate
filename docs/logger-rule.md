@@ -5,11 +5,11 @@
 1. 找到对应的机器
 2. 找到用户做了什么
 
-## 找到对应的机器
+## 1. 找到对应的机器
 
-集群环境我们需要在中间服务器的Nginx/Apache配置，让前台就可以知道代码是在哪个节点执行的。
+集群环境我们需要在中间服务器的Nginx/Apache配置，让**前台**就可以知道代码是在哪个节点执行的。
 
-以Nginx举例，如下配置
+以Nginx举例，如下配置（主要是**upstream\_addr**）
 
 ```
 upstream code_server{
@@ -31,9 +31,9 @@ server{
 }
 ```
 
-## 找到用户做了什么
+## 2. 找到用户做了什么
 
-使用log4j的MDC\(Mapped Diagnostic Context\)类，然后修改日志格式。需要在Filter的时候把用户信息放进去，这样每一条日志就带了用户信息。
+使用log4j的**MDC**\(Mapped Diagnostic Context\)类，然后修改日志格式。需要在入口Filter的时候把**用户信息**放进去，这样每一条日志就带了用户信息。
 
 **Filter中填充用户信息：**
 
@@ -47,9 +47,11 @@ server{
 
 **效果图：**![](/pictures/nginx.png)
 
-## 日志打印点
+## 3. 日志打印点
 
-日志太多太少都不适合。建议的日志打印点有：
+> **不会有人看日志，除非发生了问题。**
+
+日志不能太多，原则是能不加就不加，而不是能加就加。建议的日志打印点有：
 
 ### 1. 分支语句的变量需要打印变量
 
@@ -57,7 +59,7 @@ server{
 
 ```java
 // optype决定代码走向，需要打印日志
-logger.info("edit user, opType:" + opType);
+logger.info("edit user, opType: {}", opType);
 
 if (opType == CREATE) {
   // 新增操作
@@ -65,7 +67,7 @@ if (opType == CREATE) {
   // 修改操作
 } else {
   // 错误的类型，抛出异常
-  throw new IllegalArgumentException("unknown optype:" + opType);
+  throw new IllegalArgumentException("unknown optype: {}", opType);
 }
 ```
 
@@ -82,7 +84,7 @@ if (opType == CREATE) {
 ```java
 private void deleteDoc(long id) {
 
-  logger.info("delete doc, id:" + id);
+  logger.info("delete doc, id: {}" , id);
 
   // 删除代码
 }
@@ -93,12 +95,12 @@ private void deleteDoc(long id) {
 建议前后打印日志，而且要打印出数据长度，目的是为了知道 处理了多少数据用了多少时间 。
 
 ```java
-logger.info("query docment start, params:" + params);
+logger.info("query docment start, params: {}" , params);
 List<Document> docList = query(params);
-logger.info("query docment done, size:" + docList.size())
+logger.info("query docment done, size: {}" , docList.size());
 ```
 
-## 日志最终效果图
+## 4. 日志最终效果图
 
 ![](/pictures/log1.png)
 
