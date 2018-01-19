@@ -1,5 +1,7 @@
 # 参数校验规范
 
+
+
 ## 参数校验不要放在Controller
 
 统一放在Service上。因为Service会重用，而Controller不会重用。Controller只做参数转换工作。
