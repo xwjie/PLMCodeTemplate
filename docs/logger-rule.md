@@ -5,7 +5,7 @@
 1. 找到对应的机器
 2. 找到用户做了什么
 
-## 找到对应的机器
+## 1. 找到对应的机器
 
 集群环境我们需要在中间服务器的Nginx/Apache配置，让**前台**就可以知道代码是在哪个节点执行的。
 
@@ -31,7 +31,7 @@ server{
 }
 ```
 
-## 找到用户做了什么
+## 2. 找到用户做了什么
 
 使用log4j的**MDC**\(Mapped Diagnostic Context\)类，然后修改日志格式。需要在入口Filter的时候把**用户信息**放进去，这样每一条日志就带了用户信息。
 
@@ -47,7 +47,7 @@ server{
 
 **效果图：**![](/pictures/nginx.png)
 
-## 日志打印点
+## 3. 日志打印点
 
 > **不会有人看日志，除非发生了问题。**
 
@@ -97,10 +97,10 @@ private void deleteDoc(long id) {
 ```java
 logger.info("query docment start, params: {}" , params);
 List<Document> docList = query(params);
-logger.info("query docment done, size: {}" , docList.size())
+logger.info("query docment done, size: {}" , docList.size());
 ```
 
-## 日志最终效果图
+## 4. 日志最终效果图
 
 ![](/pictures/log1.png)
 
