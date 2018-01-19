@@ -34,7 +34,7 @@ public class ConfigService {
 
 		Collection<Config> data = dao.getAll();
 
-		logger.info("getAll end, data size:" + data.size());
+		logger.info("getAll end, data size:{}", data.size());
 
 		return data;
 	}
@@ -51,7 +51,7 @@ public class ConfigService {
 		long newId = dao.add(config);
 
 		// 修改操作需要打印操作结果
-		logger.info("add config success, id:" + newId);
+		logger.info("add config success, id:{}", newId);
 
 		return newId;
 	}
@@ -63,7 +63,7 @@ public class ConfigService {
 		boolean result = dao.delete(id);
 
 		// 修改操作需要打印操作结果
-		logger.info("delete config success, id:" + id + ", result:" + result);
+		logger.info("delete config success, id: {}, result: {}", id, result);
 
 		return result;
 	}
@@ -79,7 +79,7 @@ public class ConfigService {
 		int opType = getSomeFlag();
 
 		// 校验通过后打印重要的日志
-		logger.info("someOpration, id: " + id + ", opType: " + opType);
+		logger.info("someOpration, id: {}, opType: {}", id, opType);
 
 		boolean result = false;
 
@@ -90,7 +90,7 @@ public class ConfigService {
 		}
 
 		// 修改操作需要打印操作结果
-		logger.info("someOpration success, id:" + id + ", result:" + result);
+		logger.info("someOpration success, id: {}, result: {}", id, result);
 
 		return result; // 示例代码
 	}
@@ -100,7 +100,6 @@ public class ConfigService {
 	}
 
 	public void update(Config config) {
-		// TODO Auto-generated method stub
 
 	}
 

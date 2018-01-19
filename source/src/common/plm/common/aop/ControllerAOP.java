@@ -24,9 +24,13 @@ public class ControllerAOP {
 
 		try {
 			result = (ResultBean<?>) pjp.proceed();
-			Object[] args = pjp.getArgs();
+			
+			// 如果需要打印入参，可以从这里取出打印
+			// Object[] args = pjp.getArgs();
 
-			logger.info(pjp.getSignature() + "use time:" + (System.currentTimeMillis() - startTime));
+			// 本次操作用时（毫秒）
+			long elapsedTime = System.currentTimeMillis() - startTime;
+			logger.info("[{}]use time: {}", pjp.getSignature(), elapsedTime);
 		} catch (Throwable e) {
 			result = handlerException(pjp, e);
 		}
@@ -37,7 +41,7 @@ public class ControllerAOP {
 	private ResultBean<?> handlerException(ProceedingJoinPoint pjp, Throwable e) {
 		ResultBean<?> result = new ResultBean();
 
-		// 已知异常
+		// 已知异常【注意：已知异常不要打印堆栈，否则会干扰日志】
 		// 校验出错，参数非法
 		if (e instanceof CheckException || e instanceof IllegalArgumentException) {
 			result.setMsg(e.getLocalizedMessage());
