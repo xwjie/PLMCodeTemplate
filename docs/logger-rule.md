@@ -179,7 +179,7 @@ public class UserUtil {
 }
 ```
 
-**日志格式配置：**
+**日志格式配置（自定义的参数%X{user}）：**
 
 ```
 <layout class="org.apache.log4j.PatternLayout">
@@ -209,11 +209,11 @@ if (opType == CREATE) {
   // 修改操作
 } else {
   // 错误的类型，抛出异常
-  throw new IllegalArgumentException("unknown optype: {}", opType);
+  throw new IllegalArgumentException("Unknown opType: {}", opType);
 }
 ```
 
-如果没有打印optype的值，出了问题你只能从前找到后，看optype是什么了，很浪费时间。
+如果没有打印opType的值，出了问题你只能从前找到后，看opType是什么，很浪费时间。
 
 > 重要建议：养成增加else语句，把不合法参数抛出异常的好习惯。
 >
@@ -221,7 +221,7 @@ if (opType == CREATE) {
 
 ### 2. 修改（新增/删除）操作需要打印操作的对象
 
-这点是为了跟踪。防止出现，一个数据被删除了，找不到谁做的。如
+这点是为了跟踪。防止出现一个数据被删除了，找不到谁做的。如
 
 ```java
 private void deleteDoc(long id) {
