@@ -78,7 +78,7 @@ public Map<String, Object> addConfig(Map<String, Object> params,
   try {
     String name = (String) params.get("name");
     String value = (String) params.get("value");
-    
+
     //示例代码，省略其他代码
   }
   catch (Exception e) {
@@ -100,7 +100,7 @@ public Map<String, Object> addConfig(Map<String, Object> params,
 public void updateUser(Map<String, Object> params){
   long userId = (Long) params.get("id");
   String nickname = (String) params.get("nickname");
-  
+
   //更新代码
 }
 ```
@@ -113,13 +113,13 @@ public void updateUserNickName(long userId, String nickname){
 }
 ```
 
-你就算不看方法名，只看参数就能知道这个函数只更新了nickname一个字段。
+就算不看方法名，只看参数就能知道这个函数只更新了nickname一个字段。
 
 ## **4. 把可能变化的地方封装成函数**
 
 编写函数的总体指导思想是**抽象和封装**，需要把代码的逻辑抽象出来封装成为一个函数，以应对将来可能的变化。以后代码逻辑有变更的时候，单独修改和测试这个函数即可。
 
-如何**识别可能变的地方**，多思考一下就知道了，工作久了就知道了。比如，开发初期，业务说只有管理员才可以删除某个对象，你就应该考虑到后面可能除了管理员，其他角色也可能可以删除，或者说对象的创建者也可以删除，这就是将来潜在的变化，你写代码的时候就要**埋下伏笔**，把是否能删除做成一个函数。后面需求变更的时候，你就只需要改一个函数。
+如何**识别可能变的地方**，多思考一下就知道了，随着工作经验的增加识别起来会越来越容易。比如，开发初期，业务说只有管理员才可以删除某个对象，你就应该考虑到后面可能除了管理员，其他角色也可能可以删除，或者说对象的创建者也可以删除，这就是将来潜在的变化，你写代码的时候就要**埋下伏笔**，把是否能删除做成一个函数。后面需求变更的时候，你就只需要改一个函数。
 
 举例，删除配置项的逻辑，判断一下只有是自己创建的配置项才可以删除，一开始代码是这样的：
 
@@ -130,19 +130,18 @@ public void updateUserNickName(long userId, String nickname){
 @Override
 public boolean delete(long id) {
   Config config = configs.get(id);
-  
+
   if(config == null){
     return false;
   }
-  
+
   // 只有自己创建的可以删除
   if (UserUtil.getUser().equals(config.getCreator())) {
     return configs.remove(id) != null;      
   }
-  
+
   return false;
 }
-
 ```
 
 这里我们会识别一下，是否可以删除这个地方就有可能会变化，很有可能以后管理员就可以删除任何人的，那么这里就抽成一个函数：
@@ -154,16 +153,16 @@ public boolean delete(long id) {
 @Override
 public boolean delete(long id) {
   Config config = configs.get(id);
-  
+
   if(config == null){
     return false;
   }
-  
+
   // 判断是否可以删除
   if (canDelete(config)) {
     return configs.remove(id) != null;      
   }
-  
+
   return false;
 }
 
