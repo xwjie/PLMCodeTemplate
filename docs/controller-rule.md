@@ -2,7 +2,9 @@
 
 ## 1. **所有函数返回统一的ResultBean**
 
-## **2. ResultBean是controller专用的，不允许往后传！**
+
+
+## **2. ResultBean是controller专用的，不允许往后传**
 
 ## **3. Controller只做参数格式的转换**
 
