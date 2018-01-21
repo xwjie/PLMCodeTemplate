@@ -37,6 +37,148 @@ server{
 
 **Filter中填充用户信息：**
 
+1. session中获取登陆用户
+2. cookie中获取国际化语言信息
+
+```java
+public class UserFilter implements Filter {
+
+  @Override
+  public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
+      throws IOException, ServletException {
+
+    // 得到用户个人相关的信息（登陆的用户，用户的语言）
+    fillUserInfo((HttpServletRequest) request);
+
+    try {
+      chain.doFilter(request, response);
+    } finally {
+      // 由于tomcat线程重用，记得清空
+      clearAllUserInfo();
+    }
+  }
+
+  private void clearAllUserInfo() {
+    UserUtil.clearAllUserInfo();
+  }
+
+  private void fillUserInfo(HttpServletRequest request) {
+    // 用户信息
+    String user = getUserFromSession(request);
+
+    if (user != null) {
+      UserUtil.setUser(user);
+    }
+
+    // 语言信息
+    String locale = getLocaleFromCookies(request);
+
+    // 放入到threadlocal，同一个线程任何地方都可以拿出来
+    if (locale != null) {
+      UserUtil.setLocale(locale);
+    }
+  }
+
+  private String getLocaleFromCookies(HttpServletRequest request) {
+    Cookie[] cookies = request.getCookies();
+
+    if (cookies == null) {
+      return null;
+    }
+
+    for (int i = 0; i < cookies.length; i++) {
+      if (UserUtil.KEY_LANG.equals(cookies[i].getName())) {
+        return cookies[i].getValue();
+      }
+    }
+
+    return null;
+  }
+
+  private String getUserFromSession(HttpServletRequest request) {
+    HttpSession session = request.getSession(false);
+
+    if (session == null) {
+      return null;
+    }
+
+    // 从session中获取用户信息放到工具类中
+    return (String) session.getAttribute(UserUtil.KEY_USER);
+  }
+
+}
+```
+
+**UserUtil类把用户信息存放到ThreadLocal上，并设置到Log4j的MDC上：**
+
+```java
+public class UserUtil {
+
+  private final static ThreadLocal<String> tlUser = new ThreadLocal<String>();
+
+  private final static ThreadLocal<Locale> tlLocale = new ThreadLocal<Locale>() {
+    protected Locale initialValue() {
+      // 语言的默认值
+      return Locale.CHINESE;
+    };
+  };
+
+  public static final String KEY_LANG = "lang";
+
+  public static final String KEY_USER = "user";
+
+  public static void setUser(String userid) {
+    tlUser.set(userid);
+
+    // 把用户信息放到log4j
+    MDC.put(KEY_USER, userid);
+  }
+
+  /**
+   * 如果没有登录，返回null
+   * 
+   * @return
+   */
+  public static String getUserIfLogin() {
+    return tlUser.get();
+  }
+
+  /**
+   * 如果没有登录会抛出异常
+   * 
+   * @return
+   */
+  public static String getUser() {
+    String user = tlUser.get();
+
+    if (user == null) {
+      throw new UnloginException();
+    }
+
+    return user;
+  }
+
+  public static void setLocale(String locale) {
+    setLocale(new Locale(locale));
+  }
+
+  public static void setLocale(Locale locale) {
+    tlLocale.set(locale);
+  }
+
+  public static Locale getLocale() {
+    return tlLocale.get();
+  }
+
+  public static void clearAllUserInfo() {
+    tlUser.remove();
+    tlLocale.remove();
+
+    MDC.remove(KEY_USER);
+  }
+}
+```
+
 **日志格式配置：**
 
 ```
