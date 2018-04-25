@@ -6,6 +6,9 @@
 
 给部门制定的代码框架模板。追求工匠精神，编写简单代码。
 
+作者微信交流 ![晓风轻微信](/weixin.jpg)
+
+
 [`SpringBoot版本在这里`](https://github.com/xwjie/ElementVueSpringbootCodeTemplate)**，持续更新中，后续加入vue+element的代码模板，欢迎加星加watch。**
 
 # 前言
