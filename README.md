@@ -8,7 +8,7 @@
 
 作者微信交流
 
-![晓风轻微信](/weixin.jpg)
+![晓风轻微信](/weixin.jpg) ![java技术交流群](/java技术交流群二维码.png)
 
 
 [`SpringBoot版本在这里`](https://github.com/xwjie/ElementVueSpringbootCodeTemplate)**，持续更新中，后续加入vue+element的代码模板，欢迎加星加watch。**
