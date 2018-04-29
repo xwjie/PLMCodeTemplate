@@ -17,7 +17,7 @@ import plm.common.utils.UserUtil;
 /**
  * 用户信息相关的filter
  * 
- * @author 肖文杰 https://xwjie.github.io/PLMCodeTemplate/
+ * @author 晓风轻 https://xwjie.github.io/PLMCodeTemplate/
  *
  */
 public class UserFilter implements Filter {
