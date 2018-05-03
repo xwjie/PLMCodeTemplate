@@ -11,7 +11,7 @@
 </head>
 <body>
 	<h2>
-		晓风轻代码模板（请在chrome测试) <a href="https://github.com/xwjie/PLMCodeTemplate">https://github.com/xwjie/PLMCodeTemplate</a>
+		晓风轻代码模板（请在chrome测试) <a href="https://xwjie.github.io/">https://xwjie.github.io</a>
 	</h2>
 	<div id="userinfo"></div>
 	<hr />
@@ -67,6 +67,11 @@
 			alert(s);
 		}
 
+		/**
+		  * 后台返回相同的数据结构，前台的代码才好写才能重用
+		  * @param result： ajax返回的结果
+		  * @param fn： 成功的处理函数（传入data）
+		  */
 		function handlerResult(result, fn) {
 			// 成功执行操作，失败提示原因
 			if (result.code == 0) {
