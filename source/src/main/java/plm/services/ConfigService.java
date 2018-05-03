@@ -17,90 +17,93 @@ import plm.daos.ConfigDao;
 /**
  * 处理配置项的服务类
  * 
- * @author 肖文杰 https://xwjie.github.io/PLMCodeTemplate/
- *
+ * @author 晓风轻 https://xwjie.github.io/PLMCodeTemplate/
  */
 @Service
 public class ConfigService {
 
-	private static final Logger logger = LoggerFactory.getLogger(ConfigService.class);
+  private static final Logger logger = LoggerFactory
+      .getLogger(ConfigService.class);
 
-	@Autowired
-	ConfigDao dao;
+  private final ConfigDao dao;
 
-	public Collection<Config> getAll() {
-		// 校验通过后打印重要的日志
-		logger.info("getAll start ...");
+  public ConfigService(ConfigDao configDao) {
+    this.dao = configDao;
+  }
 
-		Collection<Config> data = dao.getAll();
+  public Collection<Config> getAll() {
+    // 校验通过后打印重要的日志
+    logger.info("getAll start ...");
 
-		logger.info("getAll end, data size:{}", data.size());
+    Collection<Config> data = dao.getAll();
 
-		return data;
-	}
+    logger.info("getAll end, data size:{}", data.size());
 
-	public long add(Config config) {
-		// 参数校验
-		notNull(config, "param.is.null");
-		notEmpty(config.getName(), "name.is.null");
-		notEmpty(config.getValue(), "value.is.null");
+    return data;
+  }
 
-		// 校验通过后打印重要的日志
-		logger.info("add config:" + config);
+  public long add(Config config) {
+    // 参数校验
+    notNull(config, "param.is.null");
+    notEmpty(config.getName(), "name.is.null");
+    notEmpty(config.getValue(), "value.is.null");
 
-		long newId = dao.add(config);
+    // 校验通过后打印重要的日志
+    logger.info("add config:" + config);
 
-		// 修改操作需要打印操作结果
-		logger.info("add config success, id:{}", newId);
+    long newId = dao.add(config);
 
-		return newId;
-	}
+    // 修改操作需要打印操作结果
+    logger.info("add config success, id:{}", newId);
 
-	public boolean delete(long id) {
-		// 参数校验
-		check(id > 0L, "id.error", id);
+    return newId;
+  }
 
-		boolean result = dao.delete(id);
+  public boolean delete(long id) {
+    // 参数校验
+    check(id > 0L, "id.error", id);
 
-		// 修改操作需要打印操作结果
-		logger.info("delete config success, id: {}, result: {}", id, result);
+    boolean result = dao.delete(id);
 
-		return result;
-	}
+    // 修改操作需要打印操作结果
+    logger.info("delete config success, id: {}, result: {}", id, result);
 
-	/**
-	 * 打印日志示例代码
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public boolean someOpration(long id) {
-		// XXX 示例代码
-		int opType = getSomeFlag();
+    return result;
+  }
 
-		// 校验通过后打印重要的日志
-		logger.info("someOpration, id: {}, opType: {}", id, opType);
+  /**
+   * 打印日志示例代码
+   * 
+   * @param id
+   * @return
+   */
+  public boolean someOpration(long id) {
+    // XXX 示例代码
+    int opType = getSomeFlag();
 
-		boolean result = false;
+    // 校验通过后打印重要的日志
+    logger.info("someOpration, id: {}, opType: {}", id, opType);
 
-		if (opType == 1) {
-			// 做这些事情
-		} else {
-			// 做那些事情
-		}
+    boolean result = false;
 
-		// 修改操作需要打印操作结果
-		logger.info("someOpration success, id: {}, result: {}", id, result);
+    if (opType == 1) {
+      // 做这些事情
+    } else {
+      // 做那些事情
+    }
 
-		return result; // 示例代码
-	}
+    // 修改操作需要打印操作结果
+    logger.info("someOpration success, id: {}, result: {}", id, result);
 
-	private int getSomeFlag() {
-		return 2;
-	}
+    return result; // 示例代码
+  }
 
-	public void update(Config config) {
+  private int getSomeFlag() {
+    return 2;
+  }
 
-	}
+  public void update(Config config) {
+
+  }
 
 }

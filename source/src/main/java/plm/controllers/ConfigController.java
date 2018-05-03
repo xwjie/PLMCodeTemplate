@@ -2,7 +2,6 @@ package plm.controllers;
 
 import java.util.Collection;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,39 +20,42 @@ import plm.services.ConfigService;
 @RestController
 public class ConfigController {
 
-	@Autowired
-	ConfigService configService;
+  private final ConfigService configService;
 
-	@GetMapping("/all")
-	public ResultBean<Collection<Config>> getAll() {
-		return new ResultBean<Collection<Config>>(configService.getAll());
-	}
+  public ConfigController(ConfigService configService) {
+    this.configService = configService;
+  }
 
-	/**
-	 * 新增数据, 返回新对象的id
-	 * 
-	 * @param config
-	 * @return
-	 */
-	@PostMapping("/add")
-	public ResultBean<Long> add(Config config) {
-		return new ResultBean<Long>(configService.add(config));
-	}
+  @GetMapping("/all")
+  public ResultBean<Collection<Config>> getAll() {
+    return new ResultBean<Collection<Config>>(configService.getAll());
+  }
 
-	/**
-	 * 根据id删除对象
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@PostMapping("/delete")
-	public ResultBean<Boolean> delete(long id) {
-		return new ResultBean<Boolean>(configService.delete(id));
-	}
+  /**
+   * 新增数据, 返回新对象的id
+   * 
+   * @param config
+   * @return
+   */
+  @PostMapping("/add")
+  public ResultBean<Long> add(Config config) {
+    return new ResultBean<Long>(configService.add(config));
+  }
 
-	@PostMapping("/update")
-	public ResultBean<Boolean> update(Config config) {
-		configService.update(config);
-		return new ResultBean<Boolean>(true);
-	}
+  /**
+   * 根据id删除对象
+   * 
+   * @param id
+   * @return
+   */
+  @PostMapping("/delete")
+  public ResultBean<Boolean> delete(long id) {
+    return new ResultBean<Boolean>(configService.delete(id));
+  }
+
+  @PostMapping("/update")
+  public ResultBean<Boolean> update(Config config) {
+    configService.update(config);
+    return new ResultBean<Boolean>(true);
+  }
 }
