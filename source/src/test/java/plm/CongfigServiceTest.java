@@ -6,7 +6,9 @@ import java.util.Collection;
 
 import org.junit.Before;
 import org.junit.FixMethodOrder;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
 import plm.beans.Config;
+import plm.common.exceptions.CheckException;
 import plm.common.utils.UserUtil;
 import plm.services.ConfigService;
 
@@ -27,42 +30,108 @@ import plm.services.ConfigService;
  * 
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/spring/root-context.xml",
-		"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
+@ContextConfiguration(locations = {
+    "file:src/main/webapp/WEB-INF/spring/root-context.xml",
+    "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml" })
 @WebAppConfiguration
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class CongfigServiceTest {
 
-	@Autowired
-	ConfigService configService;
+  private static final String CONFIG_NAME = "配置项名称";
 
-	/**
-	 * 初始化信息
-	 */
-	@Before
-	public void init() {
-		System.out.println("------------init-----------");
-		UserUtil.setLocale("en");
-		UserUtil.setUser("测试的用户");
-	}
+  @Autowired
+  ConfigService configService;
 
-	@Test
-	public void test01Full() {
-		Config config = new Config();
+  @Rule
+  public ExpectedException thrown = ExpectedException.none();
 
-		config.setName("配置项名称");
-		config.setValue("配置项值");
+  /**
+   * 初始化信息
+   */
+  @Before
+  public void init() {
+    System.out.println("------------init-----------");
+    UserUtil.setLocale("zh");
+    UserUtil.setUser("测试的用户");
+  }
 
-		// 新增测试
-		long newId = configService.add(config);
-		assertTrue(newId > 1);
+  @Test
+  public void test0_Full() {
+    Config config = new Config();
 
-		// 查询测试
-		Collection<Config> all = configService.getAll();
-		assertTrue(all.size() == 1);
+    config.setName(CONFIG_NAME);
+    config.setValue("配置项值");
 
-		// 删除测试
-		boolean result = configService.delete(newId);
-		assertTrue(result);
-	}
+    // 新增测试
+    long newId = configService.add(config);
+    assertTrue(newId > 1);
+
+    // 查询测试
+    Collection<Config> all = configService.getAll();
+    assertTrue(all.size() == 1);
+
+    // 删除测试
+    boolean result = configService.delete(newId);
+    assertTrue(result);
+
+    // 查询测试
+    Collection<Config> all2 = configService.getAll();
+    assertTrue(all2.size() == 0);
+  }
+
+  @Test
+  public void test1_addConfigException() {
+    System.out.println("\n\n--测试[参数为空]---\n\n");
+
+    thrown.expect(CheckException.class);
+    thrown.expectMessage("参数为空");
+
+    configService.add(null);
+  }
+
+  @Test
+  public void test2_addConfigException() {
+    System.out.println("\n\n--测试[取值为空]---\n\n");
+
+    thrown.expect(CheckException.class);
+    thrown.expectMessage("取值为空");
+
+    Config config = new Config();
+
+    config.setName(CONFIG_NAME);
+    config.setValue(null);
+
+    configService.add(config);
+  }
+
+  @Test
+  public void test3_addConfigException() {
+    // 先创建数据
+    {
+      Config config = new Config();
+
+      config.setName(CONFIG_NAME);
+      config.setValue("配置项值");
+
+      // 新增测试
+      long newId = configService.add(config);
+      assertTrue(newId > 1);
+    }
+
+    // 再重复创建
+    {
+      System.out.println("\n\n--测试[名称已经存在]---\n\n");
+
+      thrown.expect(CheckException.class);
+      thrown.expectMessage("名称已经存在");
+
+      Config config = new Config();
+
+      config.setName(CONFIG_NAME);
+      config.setValue("https://github.com/xwjie");
+
+      configService.add(config);
+    }
+  }
+
 }
