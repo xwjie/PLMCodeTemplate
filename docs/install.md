@@ -4,7 +4,9 @@
 
 ![idea-lombok.png](pictures/idea-lombok.png)
 
-在 Idea 里面选择 `source`目录导入`Maven`工程即可。然后在Tomcat里面运行工程即可。 idea 中需要先安装tomcat插件。
+在 Idea 里面选择 `source`目录导入`Maven`工程即可。然后在Tomcat里面运行工程即可。 
+
+idea 中需要先安装tomcat插件。
 
 ![idea-tomcat.png](pictures/idea-tomcat.png)
 ![idea-tomcat1.png](pictures/idea-tomcat1.png)
@@ -12,5 +14,6 @@
 
 启动项目，访问地址 `http://localhost:8080/+[应用名（可为空）]` 即可。
 
+# 工程结构
 
 ![目录结构](pictures/project.png)
