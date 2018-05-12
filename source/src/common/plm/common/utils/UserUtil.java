@@ -1,10 +1,9 @@
 package plm.common.utils;
 
-import java.util.Locale;
-
 import org.apache.log4j.MDC;
-
 import plm.common.exceptions.UnloginException;
+
+import java.util.Locale;
 
 /**
  * 用户工具类
