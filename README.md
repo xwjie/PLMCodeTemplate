@@ -8,7 +8,7 @@
 
 作者微信交流
 
-![晓风轻微信](/weixin.jpg) ![java技术交流群](/java技术交流群二维码.png)
+![晓风轻微信](docs/weixin.jpg) ![java技术交流群](docs/java技术交流群二维码.png)
 
 
 [`SpringBoot版本在这里`](https://github.com/xwjie/ElementVueSpringbootCodeTemplate)**，持续更新中，后续加入vue+element的代码模板，欢迎加星加watch。**
@@ -19,7 +19,17 @@
 
 ![](/pictures/main.png)
 
+# 工程使用说明
+
+工程使用jdk6+，使用了[lombok](https://projectlombok.org/)插件。在 Idea 里面选择 `source`目录导入 `Maven`  工程即可。然后在Tomcat里面运行工程即可。
+
+启动项目，访问地址 `http://localhost:8080/+[应用名（可为空）]` 即可。
+
+[工程使用详细说明](docs/install.md)
+
 # 目录
+
+**以下为简要说明，详细说明请看 [https://xwjie.github.io/](https://xwjie.github.io/)**
 
 > * 优雅编码 - 接口定义规范
 > * 优雅编码 - ResultBean的重要性和约束
@@ -138,7 +148,7 @@ public static void setUser(String userid) {
 
 最终效果图：
 
-![日志](/pictures/log1.png)
+![日志](docs/pictures/log1.png)
 
 > 没有用户信息的时候并不会报错，而是空串。
 >
@@ -172,7 +182,7 @@ server{
 
 效果图：
 
-![nginx](/pictures/nginx.png)
+![nginx](docs/pictures/nginx.png)
 
 # 优雅编码 - 参数校验和国际化规范
 

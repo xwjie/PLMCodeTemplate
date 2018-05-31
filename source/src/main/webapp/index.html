@@ -1,138 +1,303 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>晓风轻的代码模板</title>
-<style type="text/css">
-.selected {
-	background-color: yellow;
-}
-</style>
+    <meta charset="UTF-8">
+    <title>晓风轻的代码模板</title>
+    <style type="text/css">
+        .selected {
+            background-color: yellow;
+        }
+
+        .main-container {
+            margin-top: 80px;
+        }
+    </style>
+    <script src="resources/lib/jquery-1.11.3.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+
+    <!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+    <link rel="stylesheet" href="bootstrap/css/bootstrap-theme.min.css">
+
+    <!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+    <script src="bootstrap/js/bootstrap.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="bootstrap/css/datatables.min.css"/>
+
+    <script type="text/javascript" src="bootstrap/js/datatables.min.js"></script>
+
 </head>
 <body>
-	<h2>
-		晓风轻代码模板（请在chrome测试) <a href="https://github.com/xwjie/PLMCodeTemplate">https://github.com/xwjie/PLMCodeTemplate</a>
-	</h2>
-	<div id="userinfo"></div>
-	<hr />
-	<form id="formLogin" action="login" method="post">
-		用户名：<input name="username">
-		<button type="submit">模拟登陆</button>
-	</form>
-	<a id="lang_zh" href="###" onclick="javacript:switchLang('zh')">中文</a>
-	<a id="lang_en" href="###" onclick="javacript:switchLang('en')">英文</a>
-	<b>(只演示后台国际化)</b>
-	<hr />
 
-	<form id="formConfig" action="config/add" method="post">
-		配置项名称：<input name="name"><br /> 配置项取值：<input name="value"><br />
-		<button type="submit">提交</button>
-	</form>
-	<hr />
+<nav class="navbar navbar-expand-lg navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="https://xwjie.github.io/">晓风轻</a>
+        </div>
 
-	<div id="configs"></div>
-	<b><a href="configTest">读取json的配置文件例子</a></b>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="https://github.com/xwjie/PLMCodeTemplate">GitHub</a></li>
+                <li><a href="index2.html">老的首页</a></li>
+                <li><a href="configTest">读取json配置例子</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">相关链接 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="https://zhuanlan.zhihu.com/p/28705206">程序员你为什么这么累？</a></li>
+                        <li><a href="https://www.imooc.com/article/28364">什么才是java的基础知识？</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="active"><a href="https://coding.imooc.com/class/209.html">SpringBoot2.0 WebFlux响应式编程</a></li>
+                        <li><a href="https://www.imooc.com/learn/947">ajax跨域完全讲解</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="https://xwjie.github.io/">作者Github主页</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#" data-toggle="modal" data-target="#logindlg">登陆</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">语言 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a id="lang_zh" href="###" onclick="javacript:switchLang('zh')">中文</a></li>
+                        <li><a id="lang_en" href="###" onclick="javacript:switchLang('en')">英文</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">只演示后台国际化</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+<!--login-->
+<div id="logindlg" class="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">登陆</h4>
+            </div>
+            <div class="modal-body">
+                <form id="formLogin" action="login" method="post">
+                    <div class="form-group">
+                        <label for="name">用户名</label>
+                        <input type="text"class="form-control"  id="name" name="username" placeholder="用户名" value="xwjie">
+                    </div>
+                    <div class="form-group">
+                        <label for="value">密码</label>
+                        <input type="password" class="form-control" id="value" name="passw" placeholder="密码随意">
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button id="loginBtn" type="button" class="btn btn-primary">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- message box -->
+<div id="msgbox-model" class="modal fade bs-msgbox" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="gridSystemModalLabel">错误信息</h4>
+            </div>
+            <div class="modal-body">
+                <h2><span id="msgbox-text"></span></h2>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-	<script id="configTemplate" type="text/html">
-<div>
-    <%if(list.length>0) { %>
-        <h3>输出所有数据，共有<%=list.length%>个元素</h3>
-        <ul>
-            <!-- 循环语句 for-->
-            <%for(var i=0; i < list.length; i++){%>
-                <li><%=list[i].name%> <a href="###" onclick="javascirpt:deleteConfig(<%=list[i].id%>)">删除<a/></li>
-            <%}%>
-        </ul>
-    <%}else{%>
-        <h2>没有数据</h2>   
-    <%}%>
-</div>  
-	</script>
+<div class="container main-container">
+    <div class="jumbotron">
+        <h1>晓风轻代码模板</h1>
+        <p>编写简单可读的代码！欢迎交流，QQ群： 607679993</p>
+        <p><a class="btn btn-primary btn-lg" href="https://zhuanlan.zhihu.com/p/28705206" role="button">Learn more</a>
+        </p>
+    </div>
 
-	<script src="resources/lib/jquery-1.11.3.min.js"></script>
-	<script type="text/javascript">
-		function loginDone(data) {
-			$("#userinfo").html("当前登录用户：" + data);
-		}
+    <!-- add config-->
+    <div class="panel panel-primary">
+        <div class="panel-heading">新增配置项</div>
+        <div class="panel-body">
+            <form id="formConfig" action="config/add" method="post">
+                <div class="form-group">
+                    <label for="name">配置项名称</label>
+                    <input type="text" class="form-control" name="name" placeholder="配置项名称">
+                </div>
+                <div class="form-group">
+                    <label for="value">配置项取值</label>
+                    <input type="text" class="form-control" name="value" placeholder="配置项取值">
+                </div>
+                <div class="form-group">
+                    <label for="value">配置项描述</label>
+                    <input type="text" class="form-control" name="description" placeholder="描述">
+                </div>
+                <button type="submit" class="btn btn-default">新增配置项</button>
+            </form>
+        </div>
+    </div>
 
-		function switchLang(lang) {
-			$.cookie('lang', lang);
+    <!-- table -->
 
-			$('.selected').removeClass('selected');
-			$('#lang_' + lang).addClass("selected");
-		}
+    <div class="panel panel-primary">
+        <div class="panel-heading">配置项列表</div>
+        <div class="panel-body">
+            <table id="configTable" class="table table-striped table-bordered">
+                <thead>
+                <tr>
+                    <td>#</td>
+                    <td>名称</td>
+                    <td>取值</td>
+                    <td>描述</td>
+                    <td>操作</td>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-		function showError(s) {
-			alert(s);
-		}
+<!-- -->
+<script type="text/javascript">
 
-		function handlerResult(result, fn) {
-			// 成功执行操作，失败提示原因
-			if (result.code == 0) {
-				fn(result.data);
-			}
-			// 没有登陆异常，重定向到登陆页面
-			else if (result.code == -1) {
-				showError("没有登录");
-			}
-			// 参数校验出错，直接提示
-			else if (result.code == 1) {
-				showError(result.msg);
-			}
-			// 没有权限，显示申请权限电子流
-			else if (result.code == 2) {
-				showError("没有权限");	
-			} else {
-				// 不应该出现的异常，应该重点关注
-				showError(result.msg);
-			}
-		}
+    function loginDone(data) {
+        $("#logindlg").modal('hide');
+        $("#userinfo").html("当前登录用户：" + data);
+    }
 
-		// 根据id删除配置项
-		function deleteConfig(id) {
-			$.post('config/delete', {
-				id : id
-			}, function(result) {
-				console.log('delete result', result);
-				handlerResult(result, fetchAllConfigs);
-			});
-		}
+    function switchLang(lang) {
+        $.cookie('lang', lang);
 
-		// 查询所有配置项记录
-		function fetchAllConfigs() {
-			$.getJSON('config/all', function(result) {
-				handlerResult(result, renderConfigs);
-			});
-		}
+        $('.selected').removeClass('selected');
+        $('#lang_' + lang).addClass("selected");
+    }
 
-		function renderConfigs(configs) {
-			var html = baidu.template('configTemplate', {
-				list : configs
-			});
-			document.getElementById('configs').innerHTML = html;
-		}
+    function showError(s) {
+        //alert(s);
+        $('#msgbox-text').text(s);
+        $("#msgbox-model").modal('show');
+    }
 
-		$(document).ready(function() {
-			switchLang($.cookie('lang'));
+    /**
+     * 后台返回相同的数据结构，前台的代码才好写才能重用
+     * @param result： ajax返回的结果
+     * @param fn： 成功的处理函数（传入data）
+     */
+    function handlerResult(result, fn) {
+        // 成功执行操作，失败提示原因
+        if (result.code == 0) {
+            fn(result.data);
+        }
+        // 没有登陆异常，重定向到登陆页面
+        else if (result.code == -1) {
+            //showError("没有登录");
+            $("#logindlg").modal('show');
+        }
+        // 参数校验出错，直接提示
+        else if (result.code == 1) {
+            showError(result.msg);
+        }
+        // 没有权限，显示申请权限电子流
+        else if (result.code == 2) {
+            showError("没有权限");
+        } else {
+            // 不应该出现的异常，应该重点关注
+            showError(result.msg);
+        }
+    }
 
-			fetchAllConfigs();
+    // 根据id删除配置项
+    function deleteConfig(id) {
+        $.post('config/delete', {
+            id: id
+        }, function (result) {
+            console.log('delete result', result);
+            handlerResult(result, fetchAllConfigs);
+        });
+    }
 
-			// 新增
-			$('#formConfig').ajaxForm(function(result) {
-				console.log('add result', result);
-				handlerResult(result, fetchAllConfigs);
-			});
+    // 查询所有配置项记录
+    function fetchAllConfigs() {
+        configTable.ajax.reload();
+    }
 
-			// 新增
-			$('#formLogin').ajaxForm(function(result) {
-				console.log('login result', result);
-				handlerResult(result, loginDone);
-			});
-		});
-	</script>
-	<script src="resources/lib/jquery.cookie.js"></script>
-	<script src="resources/lib/jquery.form.js"></script>
-	<script src="resources/lib/baiduTemplate.js"></script>
+    function renderConfigs(configs) {
+        var html = baidu.template('configTemplate', {
+            list: configs
+        });
+        document.getElementById('configs').innerHTML = html;
+    }
+
+    $(document).ready(function () {
+        switchLang($.cookie('lang'));
+
+        //登陆按钮
+        $('#loginBtn').click(function () {
+            $('#formLogin').submit();
+        });
+
+        configTable = $('#configTable').DataTable({
+            ajax: '/config/all',
+            columns: [
+                {data: 'id'},
+                {data: 'name'},
+                {data: 'value'},
+                {data: 'description'},
+                {data: 'id'}
+            ],
+            columnDefs: [
+                {
+                    "render": function (data, type, row) {
+                        return '<button type="button" class="btn btn-xs btn-danger" onClick="javascript:deleteConfig(' + data + ')">删除</button>';
+                    },
+                    "targets": 4
+                },
+            ]
+        });
+
+        fetchAllConfigs();
+
+        // 新增
+        $('#formConfig').ajaxForm(function (result) {
+            console.log('add result', result);
+            handlerResult(result, fetchAllConfigs);
+        });
+
+        // 新增
+        $('#formLogin').ajaxForm(function (result) {
+            console.log('login result', result);
+            handlerResult(result, loginDone);
+        });
+    });
+</script>
+<script src="resources/lib/jquery.cookie.js"></script>
+<script src="resources/lib/jquery.form.js"></script>
 </body>
 </html>

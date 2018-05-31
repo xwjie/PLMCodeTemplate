@@ -1,8 +1,8 @@
 package plm.beans;
 
-import java.io.Serializable;
-
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * 配置对象类

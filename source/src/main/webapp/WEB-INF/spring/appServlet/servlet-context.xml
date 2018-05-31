@@ -18,6 +18,7 @@
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving 
 		up static resources in the ${webappRoot}/resources directory -->
 	<resources mapping="/resources/**" location="/resources/" />
+	<resources mapping="/bootstrap/**" location="/bootstrap/" />
 	<resources mapping="/*.html" location="/" />
 
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 

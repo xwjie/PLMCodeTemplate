@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>晓风轻的代码模板</title>
+<style type="text/css">
+.selected {
+	background-color: yellow;
+}
+</style>
+</head>
+<body>
+	<h2>
+		晓风轻代码模板（请在chrome测试) <a href="https://xwjie.github.io/">https://xwjie.github.io</a>
+	</h2>
+	<div id="userinfo"></div>
+	<hr />
+	<form id="formLogin" action="login" method="post">
+		用户名：<input name="username">
+		<button type="submit">模拟登陆</button>
+	</form>
+	<a id="lang_zh" href="###" onclick="javacript:switchLang('zh')">中文</a>
+	<a id="lang_en" href="###" onclick="javacript:switchLang('en')">英文</a>
+	<b>(只演示后台国际化)</b>
+	<hr />
+
+	<form id="formConfig" action="config/add" method="post">
+		配置项名称：<input name="name"><br /> 配置项取值：<input name="value"><br />
+		<button type="submit">提交</button>
+	</form>
+	<hr />
+
+	<div id="configs"></div>
+	<b><a href="configTest">读取json的配置文件例子</a></b>
+
+
+	<script id="configTemplate" type="text/html">
+<div>
+    <%if(list.length>0) { %>
+        <h3>输出所有数据，共有<%=list.length%>个元素</h3>
+        <ul>
+            <!-- 循环语句 for-->
+            <%for(var i=0; i < list.length; i++){%>
+                <li><%=list[i].name%> <a href="###" onclick="javascirpt:deleteConfig(<%=list[i].id%>)">删除<a/></li>
+            <%}%>
+        </ul>
+    <%}else{%>
+        <h2>没有数据</h2>   
+    <%}%>
+</div>  
+	</script>
+
+	<script src="resources/lib/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+		function loginDone(data) {
+			$("#userinfo").html("当前登录用户：" + data);
+		}
+
+		function switchLang(lang) {
+			$.cookie('lang', lang);
+
+			$('.selected').removeClass('selected');
+			$('#lang_' + lang).addClass("selected");
+		}
+
+		function showError(s) {
+			alert(s);
+		}
+
+		/**
+		  * 后台返回相同的数据结构，前台的代码才好写才能重用
+		  * @param result： ajax返回的结果
+		  * @param fn： 成功的处理函数（传入data）
+		  */
+		function handlerResult(result, fn) {
+			// 成功执行操作，失败提示原因
+			if (result.code == 0) {
+				fn(result.data);
+			}
+			// 没有登陆异常，重定向到登陆页面
+			else if (result.code == -1) {
+				showError("没有登录");
+			}
+			// 参数校验出错，直接提示
+			else if (result.code == 1) {
+				showError(result.msg);
+			}
+			// 没有权限，显示申请权限电子流
+			else if (result.code == 2) {
+				showError("没有权限");	
+			} else {
+				// 不应该出现的异常，应该重点关注
+				showError(result.msg);
+			}
+		}
+
+		// 根据id删除配置项
+		function deleteConfig(id) {
+			$.post('config/delete', {
+				id : id
+			}, function(result) {
+				console.log('delete result', result);
+				handlerResult(result, fetchAllConfigs);
+			});
+		}
+
+		// 查询所有配置项记录
+		function fetchAllConfigs() {
+			$.getJSON('config/all', function(result) {
+				handlerResult(result, renderConfigs);
+			});
+		}
+
+		function renderConfigs(configs) {
+			var html = baidu.template('configTemplate', {
+				list : configs
+			});
+			document.getElementById('configs').innerHTML = html;
+		}
+
+		$(document).ready(function() {
+			switchLang($.cookie('lang'));
+
+			fetchAllConfigs();
+
+			// 新增
+			$('#formConfig').ajaxForm(function(result) {
+				console.log('add result', result);
+				handlerResult(result, fetchAllConfigs);
+			});
+
+			// 新增
+			$('#formLogin').ajaxForm(function(result) {
+				console.log('login result', result);
+				handlerResult(result, loginDone);
+			});
+		});
+	</script>
+	<script src="resources/lib/jquery.cookie.js"></script>
+	<script src="resources/lib/jquery.form.js"></script>
+	<script src="resources/lib/baiduTemplate.js"></script>
+</body>
+</html>
