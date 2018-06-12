@@ -26,3 +26,7 @@ idea 中需要先安装tomcat插件。
 # 工程结构
 
 ![目录结构](pictures/project.png)
+
+# 运行界面
+
+![目录结构](pictures/plm.png)
