@@ -33,6 +33,20 @@
 
 	<!-- aop -->
 	<aop:aspectj-autoproxy />
+
+    <!-- 日志框架AOP -->
+    <!-- 注意AOP配置的顺序，log放外面（前面） -->
+    <beans:bean id="logAop" class="plm.common.aop.LogAOP" />
+
+    <aop:config>
+        <aop:aspect id="logAspect" ref="logAop">
+            <aop:pointcut id="logPointcut"
+                          expression="@annotation(plm.common.annotations.Log)" />
+            <aop:around method="handlerLogMethod" pointcut-ref="logPointcut" />
+        </aop:aspect>
+    </aop:config>
+
+    <!-- 异常框架AOP -->
 	<beans:bean id="controllerAop" class="plm.common.aop.ControllerAOP" />
 
 	<aop:config>

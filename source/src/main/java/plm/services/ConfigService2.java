@@ -123,8 +123,6 @@ public class ConfigService2 {
    * 1. 和业务无关的参数locale，messagesource 2. 输入输出都是map，根本不知道输入了什么，返回了什么
    * 
    * @param params
-   * @param local
-   * @param messageSource
    * @return
    */
   public Map<String, Object> addConfig(Map<String, Object> params) {
@@ -198,7 +196,7 @@ public class ConfigService2 {
   /**
    * 正确写法
    * 
-   * @param name
+   * @param id
    * @param value
    */
   public void updateConfigValue2(long id, String value) {

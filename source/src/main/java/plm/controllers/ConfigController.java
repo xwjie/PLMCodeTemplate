@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import plm.beans.Config;
+import plm.common.annotations.Log;
 import plm.common.beans.ResultBean;
+import plm.consts.LogConst;
 import plm.services.ConfigService;
 
 /**
@@ -27,6 +29,7 @@ public class ConfigController {
   }
 
   @GetMapping("/all")
+  @Log(action = LogConst.ACTION_QUERY, itemType = LogConst.ITEM_TYPE_CONFIG)
   public ResultBean<Collection<Config>> getAll() {
     return new ResultBean<Collection<Config>>(configService.getAll());
   }
@@ -38,6 +41,7 @@ public class ConfigController {
    * @return
    */
   @PostMapping("/add")
+  @Log(action = LogConst.ACTION_ADD, itemType = LogConst.ITEM_TYPE_CONFIG, itemId = "#config.name")
   public ResultBean<Long> add(Config config) {
     return new ResultBean<Long>(configService.add(config));
   }
@@ -49,11 +53,13 @@ public class ConfigController {
    * @return
    */
   @PostMapping("/delete")
+  @Log(action = LogConst.ACTION_DELETE, itemType = LogConst.ITEM_TYPE_CONFIG, itemId = "#id")
   public ResultBean<Boolean> delete(long id) {
     return new ResultBean<Boolean>(configService.delete(id));
   }
 
   @PostMapping("/update")
+  @Log(action = LogConst.ACTION_UPDATE, itemType = LogConst.ITEM_TYPE_CONFIG, itemId = "#config.name", param ="#config")
   public ResultBean<Boolean> update(Config config) {
     configService.update(config);
     return new ResultBean<Boolean>(true);
