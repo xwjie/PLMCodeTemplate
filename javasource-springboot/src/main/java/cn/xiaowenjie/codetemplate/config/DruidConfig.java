@@ -1,11 +1,8 @@
 package cn.xiaowenjie.codetemplate.config;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.sql.DataSource;
-
+import com.alibaba.druid.pool.DruidDataSource;
+import com.alibaba.druid.support.http.StatViewServlet;
+import com.alibaba.druid.support.http.WebStatFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -14,10 +11,10 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.support.http.StatViewServlet;
-import com.alibaba.druid.support.http.WebStatFilter;
-import org.springframework.validation.annotation.Validated;
+import javax.sql.DataSource;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Description TODO
@@ -54,12 +51,16 @@ public class DruidConfig {
     @Bean
     public ServletRegistrationBean statViewServlet() {
         ServletRegistrationBean bean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
-        Map<String, String> initParameters = new HashMap<String, String>();
-        initParameters.put("loginUsername", "admin");//属性见：com.alibaba.druid.support.http.ResourceServlet
+
+        Map<String, String> initParameters = new HashMap<>();
+
+        //属性见：com.alibaba.druid.support.http.ResourceServlet
+        initParameters.put("loginUsername", "admin");
         initParameters.put("loginPassword", "123456");
-        initParameters.put("allow", "");//默认允许所有
+        initParameters.put("allow", "");
         initParameters.put("deny", "");
         bean.setInitParameters(initParameters);
+
         return bean;
     }
 
@@ -71,11 +72,14 @@ public class DruidConfig {
     @Bean
     public FilterRegistrationBean webStatFilter() {
         FilterRegistrationBean filterBean = new FilterRegistrationBean();
+
         filterBean.setFilter(new WebStatFilter());
         filterBean.setUrlPatterns(Arrays.asList("/*"));
 
         Map<String, String> initParameters = new HashMap<String, String>();
-        initParameters.put("exclusions", "*.js,*.css,/druid/*");//属性见：com.alibaba.druid.support.http.WebStatFilter
+        //属性见：com.alibaba.druid.support.http.WebStatFilter
+        initParameters.put("exclusions", "*.js,*.css,/druid/*");
+
         filterBean.setInitParameters(initParameters);
 
         return filterBean;

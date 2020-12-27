@@ -7,7 +7,7 @@
         <result column="value" jdbcType="VARCHAR" property="value"/>
         <result column="description" jdbcType="VARCHAR" property="description"/>
         <result column="creator" jdbcType="INTEGER" property="creator"/>
-        <result column="creat_time" jdbcType="TIMESTAMP" property="creatTime"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
     </resultMap>
     <sql id="Example_Where_Clause">
@@ -71,7 +71,7 @@
         </where>
     </sql>
     <sql id="Base_Column_List">
-    id, `name`, `value`, description, creator, creat_time, update_time
+    id, `name`, `value`, description, creator, create_time, update_time
   </sql>
     <select id="selectByExample" parameterType="cn.xiaowenjie.codetemplate.ConfigsExample" resultMap="BaseResultMap">
         select
@@ -114,7 +114,7 @@
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="cn.xiaowenjie.codetemplate.entity.Config"
             useGeneratedKeys="true">
     insert into config (`name`, `value`, description,
-      creator, creat_time, update_time
+      creator, create_time, update_time
       )
     values (#{name,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{creator,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
@@ -137,7 +137,7 @@
                 creator,
             </if>
             <if test="creatTime != null">
-                creat_time,
+                create_time,
             </if>
             <if test="updateTime != null">
                 update_time,
@@ -192,7 +192,7 @@
                 creator = #{record.creator,jdbcType=INTEGER},
             </if>
             <if test="record.creatTime != null">
-                creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+                create_time = #{record.creatTime,jdbcType=TIMESTAMP},
             </if>
             <if test="record.updateTime != null">
                 update_time = #{record.updateTime,jdbcType=TIMESTAMP},
@@ -209,7 +209,7 @@
         `value` = #{record.value,jdbcType=VARCHAR},
         description = #{record.description,jdbcType=VARCHAR},
         creator = #{record.creator,jdbcType=INTEGER},
-        creat_time = #{record.creatTime,jdbcType=TIMESTAMP},
+        create_time = #{record.creatTime,jdbcType=TIMESTAMP},
         update_time = #{record.updateTime,jdbcType=TIMESTAMP}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
@@ -231,7 +231,7 @@
                 creator = #{creator,jdbcType=INTEGER},
             </if>
             <if test="creatTime != null">
-                creat_time = #{creatTime,jdbcType=TIMESTAMP},
+                create_time = #{creatTime,jdbcType=TIMESTAMP},
             </if>
             <if test="updateTime != null">
                 update_time = #{updateTime,jdbcType=TIMESTAMP},
@@ -245,7 +245,7 @@
       `value` = #{value,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       creator = #{creator,jdbcType=INTEGER},
-      creat_time = #{creatTime,jdbcType=TIMESTAMP},
+      create_time = #{creatTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
