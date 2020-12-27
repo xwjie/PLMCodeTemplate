@@ -117,7 +117,7 @@
       creator, create_time, update_time
       )
     values (#{name,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{creator,jdbcType=INTEGER}, #{creatTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      #{creator,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
       )
   </insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id"
@@ -136,7 +136,7 @@
             <if test="creator != null">
                 creator,
             </if>
-            <if test="creatTime != null">
+            <if test="createTime != null">
                 create_time,
             </if>
             <if test="updateTime != null">
@@ -156,8 +156,8 @@
             <if test="creator != null">
                 #{creator,jdbcType=INTEGER},
             </if>
-            <if test="creatTime != null">
-                #{creatTime,jdbcType=TIMESTAMP},
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="updateTime != null">
                 #{updateTime,jdbcType=TIMESTAMP},
@@ -191,8 +191,8 @@
             <if test="record.creator != null">
                 creator = #{record.creator,jdbcType=INTEGER},
             </if>
-            <if test="record.creatTime != null">
-                create_time = #{record.creatTime,jdbcType=TIMESTAMP},
+            <if test="record.createTime != null">
+                create_time = #{record.createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="record.updateTime != null">
                 update_time = #{record.updateTime,jdbcType=TIMESTAMP},
@@ -209,7 +209,7 @@
         `value` = #{record.value,jdbcType=VARCHAR},
         description = #{record.description,jdbcType=VARCHAR},
         creator = #{record.creator,jdbcType=INTEGER},
-        create_time = #{record.creatTime,jdbcType=TIMESTAMP},
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
         update_time = #{record.updateTime,jdbcType=TIMESTAMP}
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
@@ -230,8 +230,8 @@
             <if test="creator != null">
                 creator = #{creator,jdbcType=INTEGER},
             </if>
-            <if test="creatTime != null">
-                create_time = #{creatTime,jdbcType=TIMESTAMP},
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
             <if test="updateTime != null">
                 update_time = #{updateTime,jdbcType=TIMESTAMP},
@@ -245,7 +245,7 @@
       `value` = #{value,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       creator = #{creator,jdbcType=INTEGER},
-      create_time = #{creatTime,jdbcType=TIMESTAMP},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
