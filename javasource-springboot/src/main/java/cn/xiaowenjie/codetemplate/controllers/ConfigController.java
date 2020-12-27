@@ -1,16 +1,16 @@
 package cn.xiaowenjie.codetemplate.controllers;
 
-import java.util.Collection;
-
-import cn.xiaowenjie.codetemplate.beans.Config;
 import cn.xiaowenjie.codetemplate.common.annotations.Log;
 import cn.xiaowenjie.codetemplate.common.beans.ResultBean;
 import cn.xiaowenjie.codetemplate.common.consts.LogConst;
+import cn.xiaowenjie.codetemplate.entity.Config;
 import cn.xiaowenjie.codetemplate.services.ConfigService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collection;
 
 
 /**
@@ -34,6 +34,12 @@ public class ConfigController {
     return new ResultBean<>(configService.getAll());
   }
 
+  @GetMapping("/count")
+  @Log(action = LogConst.ACTION_QUERY, itemType = LogConst.ITEM_TYPE_CONFIG)
+  public ResultBean<Long> count() {
+    return new ResultBean<>(configService.count());
+  }
+
   /**
    * 新增数据, 返回新对象的id
    * 
@@ -54,7 +60,7 @@ public class ConfigController {
    */
   @PostMapping("/delete")
   @Log(action = LogConst.ACTION_DELETE, itemType = LogConst.ITEM_TYPE_CONFIG, itemId = "#id")
-  public ResultBean<Boolean> delete(long id) {
+  public ResultBean<Boolean> delete(int id) {
     return new ResultBean<>(configService.delete(id));
   }
 

@@ -1,20 +1,31 @@
 package cn.xiaowenjie.codetemplate.daos;
 
-import cn.xiaowenjie.codetemplate.beans.Config;
+import cn.xiaowenjie.codetemplate.entity.Config;
+import cn.xiaowenjie.codetemplate.ConfigsExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
-import java.util.Collection;
-
-/**
- * 配置对象的crud接口
- * 
- * @author 晓风轻  https://xwjie.github.io/PLMCodeTemplate/
- */
 public interface ConfigDao {
+    long countByExample(ConfigsExample example);
+    long count();
 
-	Collection<Config> getAll();
+    int deleteByExample(ConfigsExample example);
 
-	long add(Config config);
+    int deleteByPrimaryKey(Integer id);
 
-	boolean delete(long id);
+    int insert(Config record);
 
+    int insertSelective(Config record);
+
+    List<Config> selectByExample(ConfigsExample example);
+
+    Config selectByPrimaryKey(Integer id);
+
+    int updateByExampleSelective(@Param("record") Config record, @Param("example") ConfigsExample example);
+
+    int updateByExample(@Param("record") Config record, @Param("example") ConfigsExample example);
+
+    int updateByPrimaryKeySelective(Config record);
+
+    int updateByPrimaryKey(Config record);
 }
