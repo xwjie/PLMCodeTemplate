@@ -58,7 +58,7 @@ public class HomeController {
     @SneakyThrows
     public ResultBean<String> restTest(@PathVariable String key) {
         log.info("resttest, key=" + key);
-            Thread.sleep(2000);
+        Thread.sleep(2000);
         return new ResultBean<>("input key is " + key);
     }
 
