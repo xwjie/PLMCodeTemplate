@@ -2,6 +2,7 @@ package cn.xiaowenjie.codetemplate.controllers;
 
 import cn.xiaowenjie.codetemplate.common.beans.ResultBean;
 import cn.xiaowenjie.codetemplate.common.utils.UserUtil;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,13 +55,10 @@ public class HomeController {
 
     @GetMapping(value = "/resttest/{key}")
     @ResponseBody
+    @SneakyThrows
     public ResultBean<String> restTest(@PathVariable String key) {
         log.info("resttest, key=" + key);
-        try {
             Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         return new ResultBean<>("input key is " + key);
     }
 
